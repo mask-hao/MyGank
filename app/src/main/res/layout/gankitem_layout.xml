@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:foreground="?attr/selectableItemBackground"
+    android:orientation="vertical"
+    app:cardBackgroundColor="@color/colorCardViewBackground"
+    app:cardCornerRadius="0dp"
+    app:cardElevation="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/gankitem_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:maxLines="2"
+                    android:text="非常规矩的一款 Bottom 导航效果组件"
+                    android:textColor="@color/colorTextViewBlack"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/gankitem_source_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="5dp"
+                android:lines="1"
+                android:textColor="@color/colorTextViewGrey"
+                android:text="souce:chrome"
+                android:textSize="12sp" />
+
+
+            <TextView
+                android:id="@+id/gankitem_who_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:lines="1"
+                android:textColor="@color/colorTextViewGrey"
+                android:textSize="12sp" />
+
+            <com.like.LikeButton
+                android:id="@+id/gankitem_like_bt"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                app:anim_scale_factor="1"
+                app:circle_end_color="@color/md_red_500"
+                app:circle_start_color="@color/md_red_500"
+                app:dots_primary_color="@color/md_red_500"
+                app:dots_secondary_color="@color/md_red_500"
+                app:icon_size="24dp"
+                app:like_drawable="@drawable/ic_favorite_red_24dp"
+                app:liked="false"
+                app:unlike_drawable="@drawable/ic_favorite_black_24dp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

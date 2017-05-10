@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/colorCardViewBackground"
+    android:layout_width="match_parent"
+    android:layout_height="48dp">
+    <TextView
+        android:layout_centerVertical="true"
+        android:id="@+id/search_his_tv"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="56dp"
+        android:maxLines="2"
+        android:textColor="@color/colorTextViewGrey"
+        android:textSize="@dimen/me_textSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/search_his_iv"
+        android:tint="@color/colorTextViewGrey"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_clear_black_24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <View
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorViewGroupBackground"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"/>
+</RelativeLayout>

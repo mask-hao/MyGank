@@ -1,0 +1,19 @@
+ext{
+    //sdk and tools 定义SDk和工具的版本
+    minSdkVersion = 19
+    targetSdkVersion = 25
+    compileSdkVersion = 25
+    buildToolsVersion = '25.0.2'
+    //dependencies 依赖的版本号
+    supportLiraryVersion='25.3.1'
+    retrofitVersion='2.2.0'
+    butterknifeVersion='8.5.1'
+    rxandroidVersion='2.0.1'
+    rxjavaVersion='2.0.1'
+    retrolambdaVersion='3.6.0'
+    cicleImageVersion='2.1.0'
+    glideVersion='3.7.0'
+    baseAdapter='2.9.9'
+    photoViewVersion='2.0.0'
+    likeBtVersion='0.2.0'
+}

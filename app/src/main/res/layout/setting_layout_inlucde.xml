@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/colorViewGroupBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.CardView
+        app:cardBackgroundColor="@color/colorCardViewBackground"
+        app:cardCornerRadius="0dp"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!--省流量-->
+            <LinearLayout
+                android:id="@+id/setting_wifi_img_ll"
+                android:clickable="true"
+                android:background="?android:selectableItemBackground"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <LinearLayout
+                            android:layout_centerVertical="true"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <TextView
+
+                            android:textColor="@color/colorTextViewBlack"
+                            android:layout_marginStart="@dimen/image_paddingSize"
+                            android:text="@string/wifi_img_only"
+                            android:textSize="@dimen/me_textSize"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <TextView
+
+                            android:layout_marginStart="@dimen/image_paddingSize"
+                            android:text="@string/wifi_img_only_samll"
+                            android:textSize="@dimen/small_tv_size"
+                            android:textColor="@color/colorTextViewGrey"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <View
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/colorViewGroupBackground"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/view_size"/>
+                        <Switch
+                            android:clickable="false"
+                            android:id="@+id/setting_sw"
+                            android:layout_marginEnd="@dimen/image_paddingSize"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+            <!---清除缓存-->
+            <LinearLayout
+                android:id="@+id/setting_clearCache_ll"
+                android:clickable="true"
+                android:background="?android:selectableItemBackground"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_centerVertical="true"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        <TextView
+                            android:textColor="@color/colorTextViewBlack"
+                            android:layout_marginStart="@dimen/image_paddingSize"
+                            android:layout_centerInParent="true"
+                            android:text="@string/clear_cache"
+                            android:textSize="@dimen/me_textSize"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/setting_cacheSize_ll"
+                            android:layout_marginStart="@dimen/image_paddingSize"
+                            android:textSize="@dimen/small_tv_size"
+                            android:textColor="@color/colorTextViewGrey"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/colorViewGroupBackground"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/view_size"/>
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+            <!--检查更新-->
+            <LinearLayout
+                android:id="@+id/setting_checkUpdate_ll"
+                android:clickable="true"
+                android:background="?android:selectableItemBackground"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <LinearLayout
+                            android:layout_centerVertical="true"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_marginStart="@dimen/image_paddingSize"
+                            android:textColor="@color/colorTextViewBlack"
+                            android:layout_centerInParent="true"
+                            android:text="@string/check_update"
+                            android:textSize="@dimen/me_textSize"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                            <TextView
+                                android:textColor="@color/colorTextViewGrey"
+                                android:id="@+id/setting_version_ll"
+                                android:layout_marginStart="@dimen/image_paddingSize"
+                                android:textSize="@dimen/small_tv_size"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <View
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/colorViewGroupBackground"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/view_size"/>
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+            <!--关于-->
+            <LinearLayout
+                android:id="@+id/setting_about_ll"
+                android:clickable="true"
+                android:background="?android:selectableItemBackground"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+
+                            android:layout_centerVertical="true"
+                            android:textColor="@color/colorTextViewBlack"
+                            android:layout_marginStart="@dimen/image_paddingSize"
+                            android:text="@string/about"
+                            android:textSize="@dimen/me_textSize"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <View
+                            android:background="@color/colorViewGroupBackground"
+                            android:layout_alignParentBottom="true"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/view_size"/>
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/setting_logout_ll"
+                android:clickable="true"
+                android:background="?android:selectableItemBackground"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginStart="@dimen/image_paddingSize"
+                            android:gravity="center"
+                            android:text="@string/logout"
+                            android:textColor="@color/md_red_700"
+                            android:textSize="@dimen/me_textSize" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        android:layout_marginTop="15dp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorViewGroupBackground">
+    <TextView
+        android:layout_marginStart="10dp"
+        android:id="@+id/gankitem_section_tv"
+        android:textSize="25sp"
+        android:textColor="@color/colorTextViewBlack"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>

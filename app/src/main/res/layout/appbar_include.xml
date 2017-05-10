@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.AppBarLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/app_bar_layout"
+    android:background="?attr/colorPrimary"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:elevation="10dp"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+    <com.zhanghao.gankio.ui.widget.MyToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_collapseMode="pin"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+    </com.zhanghao.gankio.ui.widget.MyToolbar>
+</android.support.design.widget.AppBarLayout>
