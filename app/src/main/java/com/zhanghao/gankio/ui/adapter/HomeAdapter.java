@@ -1,12 +1,7 @@
 package com.zhanghao.gankio.ui.adapter;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
@@ -21,14 +16,9 @@ import com.zhanghao.gankio.entity.GankContent;
 import com.zhanghao.gankio.entity.GankSection;
 import com.zhanghao.gankio.listener.LikeListener;
 import com.zhanghao.gankio.util.ComUtil;
-import com.zhanghao.gankio.util.LogUtil;
-import com.zhanghao.gankio.util.NetWorkUtil;
+import com.zhanghao.gankio.util.http.NetWorkUtil;
 import com.zhanghao.gankio.util.SharedPrefsUtils;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**

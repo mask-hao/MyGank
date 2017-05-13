@@ -27,7 +27,7 @@
                 android:layout_height="70dp"
                 android:scaleType="centerCrop"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/noimage" />
+              />
 
             <LinearLayout
                 android:layout_width="match_parent"

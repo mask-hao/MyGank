@@ -27,6 +27,7 @@
                     android:id="@+id/login_account_et"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
+                    android:lines="1"
                     android:hint="@string/inputAccount" />
             </android.support.design.widget.TextInputLayout>
 

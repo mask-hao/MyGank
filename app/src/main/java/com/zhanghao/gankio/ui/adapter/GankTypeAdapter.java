@@ -3,17 +3,12 @@ package com.zhanghao.gankio.ui.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.SparseArray;
-import android.util.SparseIntArray;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.Target;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
@@ -26,7 +21,7 @@ import com.zhanghao.gankio.entity.GankContent;
 import com.zhanghao.gankio.listener.LikeListener;
 import com.zhanghao.gankio.util.ComUtil;
 import com.zhanghao.gankio.util.LogUtil;
-import com.zhanghao.gankio.util.NetWorkUtil;
+import com.zhanghao.gankio.util.http.NetWorkUtil;
 import com.zhanghao.gankio.util.SharedPrefsUtils;
 
 import java.util.List;

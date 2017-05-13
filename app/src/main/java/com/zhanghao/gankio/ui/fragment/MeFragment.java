@@ -391,9 +391,10 @@ public class MeFragment extends BaseFragment<UserContract.Presenter> implements 
         setUserInfo();
         ObjectAnimator.ofFloat(meRl, "alpha", 0, 1).setDuration(500).start();
         UserUtil.serializeUser(user);
-        if (!loginState) loginState = true;
-        Glide.with(getContext())
-                .load(Constant.BASE_URL + "/" + user.getUserImage()).into(meIv);
+        if (!loginState)
+            loginState = true;
+        if (!user.getUserImage().equals(""))
+            Glide.with(getContext()).load(Constant.BASE_URL + "/" + user.getUserImage()).into(meIv);
     }
 
     private void setupUser(User user1) {

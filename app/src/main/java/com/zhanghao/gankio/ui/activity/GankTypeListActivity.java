@@ -233,8 +233,11 @@ public class GankTypeListActivity extends BaseActivity<GankContract.TypePresente
                 GankContent content= (GankContent) mDatas.get(pos);
                 mPresenter.addOneFav(content,token,pos);
                 LIKE_CLICK=false;
-            }else
+            }else{
                 Toast.makeText(this,"请登录",Toast.LENGTH_SHORT).show();
+                gankTypeAdapter.notifyDataSetChanged();
+            }
+
         }
 
     }

@@ -1,27 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/toolbar_include" />
 
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/gankcontent_sl"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <include layout="@layout/recycler_header"/>
-        <WebView
-            android:id="@+id/gank_content_wb"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
-    <include layout="@layout/toolbar_include"/>
     <ProgressBar
         android:id="@+id/gankcontent_pg"
         style="?android:attr/progressBarStyleHorizontal"
@@ -29,4 +13,11 @@
         android:layout_height="2dp"
         android:max="100"
         android:progressDrawable="@drawable/web_view_progress" />
-</FrameLayout>
+
+    <WebView
+        android:id="@+id/gank_content_wb"
+        android:background="@color/colorViewGroupBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

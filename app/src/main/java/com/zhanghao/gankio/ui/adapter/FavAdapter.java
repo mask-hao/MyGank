@@ -10,10 +10,8 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.zhanghao.gankio.BaseApplication;
 import com.zhanghao.gankio.R;
 import com.zhanghao.gankio.entity.Constant;
-import com.zhanghao.gankio.entity.GankContent;
 import com.zhanghao.gankio.entity.GankFavContent;
-import com.zhanghao.gankio.util.LogUtil;
-import com.zhanghao.gankio.util.NetWorkUtil;
+import com.zhanghao.gankio.util.http.NetWorkUtil;
 import com.zhanghao.gankio.util.SharedPrefsUtils;
 
 import java.util.List;

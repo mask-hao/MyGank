@@ -15,7 +15,7 @@ import retrofit2.http.Url;
 
 public interface FirService {
 
-    @GET("apps/latest/xxxxxxx?api_token=xxxxxx")
+    @GET("apps/latest/?api_token=")
     Call<AppInfo> getAppBuildInfo();
 
 

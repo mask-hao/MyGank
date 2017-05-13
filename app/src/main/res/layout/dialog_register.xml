@@ -13,6 +13,7 @@ android:layout_height="wrap_content">
         android:layout_width="match_parent"
         android:hint="@string/inputAccount"
         android:maxLines="1"
+        android:lines="1"
         android:layout_height="wrap_content" />
 </android.support.design.widget.TextInputLayout>
 <android.support.design.widget.TextInputLayout
@@ -24,6 +25,7 @@ android:layout_height="wrap_content">
         android:layout_width="match_parent"
         android:hint="@string/inputPassword"
         android:maxLines="1"
+        android:lines="1"
         android:layout_height="wrap_content" />
 </android.support.design.widget.TextInputLayout>
 <android.support.design.widget.TextInputLayout

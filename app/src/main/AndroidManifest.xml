@@ -58,7 +58,7 @@
             android:exported="false"/>
 
 
-        <meta-data android:value="xxxxxxx" android:name="BUG_HD_SDK_GENERAL_KEY" />
+        <meta-data android:value="" android:name="BUG_HD_SDK_GENERAL_KEY" />
 
     </application>
 

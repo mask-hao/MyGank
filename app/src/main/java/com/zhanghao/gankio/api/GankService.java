@@ -6,9 +6,7 @@ import com.zhanghao.gankio.entity.GankFavs;
 import com.zhanghao.gankio.entity.GankItem;
 import com.zhanghao.gankio.entity.GankSearchItem;
 import com.zhanghao.gankio.entity.User;
-
 import java.util.List;
-
 import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -21,6 +19,7 @@ import retrofit2.http.Path;
  */
 
 public interface GankService {
+
     @POST("/GankWeb/api/data/{type}/{page}")
     Observable<GankItem> getTypeData
             (
