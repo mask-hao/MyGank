@@ -145,7 +145,7 @@ public class GankTypeAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, 
                         }
                         private int resizeHeight(int originalHeight,int originalWidth) {
                             int scale=originalWidth/mWidth;
-                            return originalHeight/scale;
+                            return scale<=0?1:originalHeight/scale;
                         }
                     });
         }else{

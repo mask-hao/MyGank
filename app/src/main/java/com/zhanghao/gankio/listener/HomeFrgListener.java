@@ -10,5 +10,4 @@ public interface HomeFrgListener{
     void hideBottomBar();
     void showBottomBar();
     void setToolbarTitle(String title);
-//    void addSearchFrg();
 }

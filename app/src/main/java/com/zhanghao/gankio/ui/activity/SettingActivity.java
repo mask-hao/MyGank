@@ -13,6 +13,7 @@ import com.zhanghao.gankio.contract.UserContract;
 import com.zhanghao.gankio.entity.Constant;
 import com.zhanghao.gankio.entity.User;
 import com.zhanghao.gankio.listener.NewApkListener;
+import com.zhanghao.gankio.listener.NewVersionListener;
 import com.zhanghao.gankio.presenter.UserPresenter;
 import com.zhanghao.gankio.service.FirRemoteService;
 import com.zhanghao.gankio.util.ActivityPool;
@@ -31,7 +32,7 @@ import butterknife.BindView;
  * Created by zhanghao on 2017/4/28.
  */
 
-public class SettingActivity extends BaseActivity implements UserContract.LogoutView, NewApkListener {
+public class SettingActivity extends BaseActivity implements UserContract.LogoutView, NewApkListener, NewVersionListener {
     private static final String TAG = "SettingActivity";
     @BindView(R.id.setting_sw)
     Switch settingSw;
@@ -92,6 +93,7 @@ public class SettingActivity extends BaseActivity implements UserContract.Logout
     private void checkUpdate() {
         ServiceUtil.startFirRemoteService(this,Constant.GET_APP_INFO);
         FirRemoteService.setNewApkListener(this);
+        FirRemoteService.setNewVersionListener(this);
     }
 
     private void initWifiSwitch() {
@@ -213,5 +215,10 @@ public class SettingActivity extends BaseActivity implements UserContract.Logout
                         .show();
             }
         });
+    }
+
+    @Override
+    public void showToast() {
+        Toast.makeText(this,"已经安装最新版本",Toast.LENGTH_SHORT).show();
     }
 }

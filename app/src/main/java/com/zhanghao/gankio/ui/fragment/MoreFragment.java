@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.callback.ItemDragAndSwipeCallback;
 import com.chad.library.adapter.base.listener.OnItemDragListener;
+import com.zhanghao.gankio.BaseApplication;
 import com.zhanghao.gankio.R;
 import com.zhanghao.gankio.contract.GankContract;
 import com.zhanghao.gankio.entity.MoreEntity;
@@ -47,10 +48,11 @@ public class MoreFragment extends BaseFragment<GankContract.MorePresenter> imple
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         root = getRoot(inflater, container);
         unbinder = ButterKnife.bind(this, root);
-        mPresenter.getMoreData(getContext());
+        if(mPresenter!=null)
+            mPresenter.getMoreData(getContext());
         return root;
     }
 

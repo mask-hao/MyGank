@@ -1,6 +1,7 @@
 package com.zhanghao.gankio.ui.activity;
 
 import android.Manifest;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -8,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.zhanghao.gankio.BuildConfig;
 import com.zhanghao.gankio.R;
 import com.zhanghao.gankio.entity.Constant;
 import com.zhanghao.gankio.listener.HomeFrgListener;
@@ -98,27 +100,38 @@ public class MainActivity extends BaseActivity implements HomeFrgListener, NewAp
 
     @Override
     public void hideToolbar() {
-        if (mToolbar.isShow())
+        if (mToolbar.isShow()){
             mToolbar.hide();
+        }
+
     }
 
     @Override
     public void showToolbar() {
-        if (!mToolbar.isShow())
+        if (!mToolbar.isShow()){
             mToolbar.show();
+        }
+
     }
 
     @Override
     public void hideBottomBar() {
-        if (!navigation.isHidden())
+        if (!navigation.isHidden()){
             navigation.hide();
+        }
+
     }
 
     @Override
     public void showBottomBar() {
-        if (navigation.isHidden())
+        if (navigation.isHidden()){
             navigation.show();
+        }
     }
+
+
+
+
 
 
     @Override

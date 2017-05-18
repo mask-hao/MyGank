@@ -5,7 +5,9 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +20,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.zhanghao.gankio.R;
+import com.zhanghao.gankio.listener.WebViewScrollListener;
+import com.zhanghao.gankio.ui.widget.MyScrollWebView;
 import com.zhanghao.gankio.util.http.NetWorkUtil;
 
 import butterknife.BindView;
@@ -27,17 +31,18 @@ import butterknife.BindView;
  */
 
 @SuppressLint("SetJavaScriptEnabled")
-public class DetailActivity extends BaseActivity {
+public class DetailActivity extends BaseActionBarActivity{
 
     private static final String TAG = "DetailActivity";
     @BindView(R.id.gankcontent_pg)
     ProgressBar progressBar;
     @BindView(R.id.gank_content_wb)
-    WebView webView;
+    MyScrollWebView webView;
     private String URL;
     private String TITLE;
     private View rootView;
     WebSettings webSettings;
+    private boolean isFullScreen=false;
     @Override
     protected int setContentLayout() {
         return R.layout.detail_layout;
@@ -89,14 +94,26 @@ public class DetailActivity extends BaseActivity {
         });
         webView.setWebChromeClient(chromeClient);
         webView.loadUrl(URL);
+        webView.setScrollListener(new WebViewScrollListener() {
+            @Override
+            public void hideToolbar() {
+                new Handler().postDelayed(()->{
+                    hideSystemUI();
+                },500);
 
+
+            }
+
+            @Override
+            public void showToolbar() {
+                new Handler().postDelayed(()->{
+                    showSystemUI();
+                },500);
+            }
+        });
     }
 
-    // This snippet hides the system bars.
     private void hideSystemUI() {
-        // Set the IMMERSIVE flag.
-        // Set the content to appear under the system bars so that the content
-        // doesn't resize when the system bars hide and show.
         rootView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -105,14 +122,15 @@ public class DetailActivity extends BaseActivity {
                         | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
                         | View.SYSTEM_UI_FLAG_IMMERSIVE);
     }
-    // This snippet shows the system bars. It does this by removing all the flags
-// except for the ones that make the content appear under the system bars.
+
     private void showSystemUI() {
         rootView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
+
+
 
     private WebChromeClient chromeClient=new WebChromeClient() {
         @Override

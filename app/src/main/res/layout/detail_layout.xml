@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/colorViewGroupBackground"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:baselineAligned="false">
 
-    <include layout="@layout/toolbar_include" />
 
     <ProgressBar
         android:id="@+id/gankcontent_pg"
@@ -14,7 +16,8 @@
         android:max="100"
         android:progressDrawable="@drawable/web_view_progress" />
 
-    <WebView
+    <com.zhanghao.gankio.ui.widget.MyScrollWebView
+        android:fitsSystemWindows="true"
         android:id="@+id/gank_content_wb"
         android:background="@color/colorViewGroupBackground"
         android:layout_width="match_parent"

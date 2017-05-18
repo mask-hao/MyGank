@@ -297,4 +297,5 @@
     <color name="COLOR_RED">#fe1100</color>
     <color name="COLOR_GREEN">#0cd016</color>
     <color name="COLOR_SHEER">#00ffffff</color>
+    <color name="transparent">@android:color/transparent</color>
 </resources>

@@ -54,7 +54,6 @@ public class HomeFragment extends BaseFragment<GankContract.DailyPresenter> impl
     SwipeRefreshLayout gankhomeSrl;
     @BindView(R.id.home_search_fab)
     MyFloatingActionButton homeSearchFab;
-//    private GankContract.DailyPresenter dailyPresenter;
     private HomeAdapter homeDataAdapter;
     private List<MultiItemEntity> mDatas = new ArrayList<>();
     private List<Integer> dateList = new ArrayList<>();
@@ -341,5 +340,6 @@ public class HomeFragment extends BaseFragment<GankContract.DailyPresenter> impl
     @Override
     public void onDestroy() {
         super.onDestroy();
+        page=1;
     }
 }

@@ -76,7 +76,6 @@ public class MeFragment extends BaseFragment<UserContract.Presenter> implements 
     LinearLayout meSettingLl;
     @BindView(R.id.me_nightTh_sw)
     Switch meNightThSw;
-//    private UserContract.Presenter mUserPresenter;
     private AlertDialog alertDialog;
     boolean loginState = true;
     LinearLayout loginLLView;

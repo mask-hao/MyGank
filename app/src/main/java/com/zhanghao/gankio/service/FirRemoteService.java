@@ -23,8 +23,10 @@ import com.zhanghao.gankio.entity.AppInfo;
 import com.zhanghao.gankio.entity.Constant;
 import com.zhanghao.gankio.entity.NewApk;
 import com.zhanghao.gankio.listener.NewApkListener;
+import com.zhanghao.gankio.listener.NewVersionListener;
 import com.zhanghao.gankio.model.FirDataRepository;
 import com.zhanghao.gankio.model.FirDataSource;
+import com.zhanghao.gankio.model.GankDataRepository;
 import com.zhanghao.gankio.util.LogUtil;
 import com.zhanghao.gankio.util.ServiceUtil;
 
@@ -47,11 +49,15 @@ import retrofit2.Response;
 public class FirRemoteService extends IntentService{
     private static final String TAG = "FirRemoteService";
     private FirDataSource dataSource;
-    private AlertDialog alertDialog;
     private NotificationCompat.Builder mBuilder;
     private NotificationManager mManager;
     private int totalFileSize;
     private static NewApkListener mNewApkListener;
+    private static NewVersionListener newVersionListener;
+
+    public static void setNewVersionListener(NewVersionListener newVersionListener) {
+        FirRemoteService.newVersionListener = newVersionListener;
+    }
 
     public static void setNewApkListener(NewApkListener mNewApkListener) {
         FirRemoteService.mNewApkListener = mNewApkListener;
@@ -60,7 +66,6 @@ public class FirRemoteService extends IntentService{
     public FirRemoteService() {
         super("");
     }
-
 
     @Override
     public void onCreate() {
@@ -88,11 +93,7 @@ public class FirRemoteService extends IntentService{
     }
 
 
-
-
-
 //    --------------------------------------------------------
-
 
 
     private void downloadNewApk(String url, long size) {
@@ -189,7 +190,10 @@ public class FirRemoteService extends IntentService{
         if (remoteVersionCode>localVersionCode){
             showNewAppDialog(appInfo.getChangelog(),appInfo.getDirect_install_url(),appInfo.getBinary().getFsize());
         }else{
-            Toast.makeText(this,"已安装最新版本",Toast.LENGTH_SHORT).show();
+            new Handler(getMainLooper()).post(()->{
+                if (newVersionListener!=null)
+                    newVersionListener.showToast();
+            });
         }
     }
 
