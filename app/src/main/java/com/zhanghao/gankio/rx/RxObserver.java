@@ -1,18 +1,10 @@
 package com.zhanghao.gankio.rx;
 
-import com.zhanghao.gankio.entity.Constant;
-import com.zhanghao.gankio.presenter.BasePresenter;
 import com.zhanghao.gankio.presenter.BasePresenterImpl;
 import com.zhanghao.gankio.util.LogUtil;
 
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
-
-import java.net.SocketTimeoutException;
-
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.observers.DisposableObserver;
 
 /**
  * Created by zhanghao on 2017/4/22.

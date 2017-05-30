@@ -3,17 +3,12 @@ package com.zhanghao.gankio.api;
 import com.zhanghao.gankio.entity.CommonResponse;
 import com.zhanghao.gankio.entity.User;
 
-import java.io.File;
-
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.http.Body;
-import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.Path;
 
 /**
  * Created by zhanghao on 2017/4/22.

@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +15,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -31,18 +31,20 @@ import butterknife.BindView;
  */
 
 @SuppressLint("SetJavaScriptEnabled")
-public class DetailActivity extends BaseActionBarActivity{
+public class DetailActivity extends BaseActionBarActivity {
 
     private static final String TAG = "DetailActivity";
     @BindView(R.id.gankcontent_pg)
     ProgressBar progressBar;
     @BindView(R.id.gank_content_wb)
     MyScrollWebView webView;
+    @BindView(R.id.detail_main_ll)
+    LinearLayout detailMainLl;
     private String URL;
     private String TITLE;
-    private View rootView;
     WebSettings webSettings;
-    private boolean isFullScreen=false;
+    private boolean isFullScreen = false;
+
     @Override
     protected int setContentLayout() {
         return R.layout.detail_layout;
@@ -69,7 +71,6 @@ public class DetailActivity extends BaseActionBarActivity{
     }
 
     private void initView() {
-        rootView=getWindow().getDecorView();
         webSettings = webView.getSettings();
         webSettings.setAppCacheEnabled(true);
         webSettings.setAppCachePath(getApplicationContext().getDir("cache", 0).getPath());
@@ -82,9 +83,19 @@ public class DetailActivity extends BaseActionBarActivity{
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        webSettings.setSupportZoom(true);
+        webSettings.setSupportZoom(true); // 支持缩放
+        webSettings.setBuiltInZoomControls(true); // 支持手势缩放
+        webSettings.setDisplayZoomControls(false); // 不显示缩放按钮
 
-        webView.setWebViewClient(new WebViewClient(){
+        webSettings.setDatabaseEnabled(true);
+        webSettings.setSaveFormData(true);
+        webSettings.setDomStorageEnabled(true);
+        webSettings.setGeolocationEnabled(true);
+        webSettings.setAppCacheEnabled(true);
+        webSettings.setUseWideViewPort(true); // 将图片调整到适合WebView的大小
+        webSettings.setLoadWithOverviewMode(true); // 自适应屏幕
+
+        webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (url != null)
@@ -97,24 +108,25 @@ public class DetailActivity extends BaseActionBarActivity{
         webView.setScrollListener(new WebViewScrollListener() {
             @Override
             public void hideToolbar() {
-                new Handler().postDelayed(()->{
+                new Handler().postDelayed(() -> {
+
                     hideSystemUI();
-                },500);
+                }, 500);
 
 
             }
 
             @Override
             public void showToolbar() {
-                new Handler().postDelayed(()->{
+                new Handler().postDelayed(() -> {
                     showSystemUI();
-                },500);
+                }, 500);
             }
         });
     }
 
     private void hideSystemUI() {
-        rootView.setSystemUiVisibility(
+       getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -124,15 +136,14 @@ public class DetailActivity extends BaseActionBarActivity{
     }
 
     private void showSystemUI() {
-        rootView.setSystemUiVisibility(
+        getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 
 
-
-    private WebChromeClient chromeClient=new WebChromeClient() {
+    private WebChromeClient chromeClient = new WebChromeClient() {
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
             if (progressBar != null) {
@@ -151,14 +162,14 @@ public class DetailActivity extends BaseActionBarActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main,menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.menu_refresh:
                 webView.reload();
                 break;
@@ -174,11 +185,11 @@ public class DetailActivity extends BaseActionBarActivity{
     }
 
     private void shareUrl() {
-        Intent intent=new Intent();
+        Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
-        intent.putExtra(Intent.EXTRA_TEXT,URL);
+        intent.putExtra(Intent.EXTRA_TEXT, URL);
         intent.setType("text/plain");
-        startActivity(Intent.createChooser(intent,"分享到..."));
+        startActivity(Intent.createChooser(intent, "分享到..."));
     }
 
 
@@ -189,10 +200,10 @@ public class DetailActivity extends BaseActionBarActivity{
     }
 
     private void copyUrlToClipBard() {
-        ClipboardManager clipboardManager= (ClipboardManager) this.getSystemService(CLIPBOARD_SERVICE);
-        ClipData clipData=ClipData.newPlainText("URL",URL);
+        ClipboardManager clipboardManager = (ClipboardManager) this.getSystemService(CLIPBOARD_SERVICE);
+        ClipData clipData = ClipData.newPlainText("URL", URL);
         clipboardManager.setPrimaryClip(clipData);
-        Toast.makeText(this,"链接已复制到粘贴板",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "链接已复制到粘贴板", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -211,11 +222,11 @@ public class DetailActivity extends BaseActionBarActivity{
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode==KeyEvent.KEYCODE_BACK && webView.canGoBack()){
+        if (keyCode == KeyEvent.KEYCODE_BACK && webView.canGoBack()) {
             webView.goBack();
             return true;
         }
-        return super.onKeyDown(keyCode,event);
+        return super.onKeyDown(keyCode, event);
 
     }
 }

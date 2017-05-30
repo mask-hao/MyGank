@@ -5,8 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
-import com.zhanghao.gankio.R;
-import com.zhanghao.gankio.ui.widget.MyToolbar;
 import com.zhanghao.gankio.util.ActivityPool;
 
 import butterknife.ButterKnife;

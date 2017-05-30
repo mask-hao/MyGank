@@ -8,8 +8,8 @@ android {
         applicationId "com.zhanghao.gankio"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 16
-        versionName "1.6"
+        versionCode 17
+        versionName "1.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 //        jackOptions {
 //            enabled true

@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 
 import com.zhanghao.gankio.presenter.BasePresenter;
 
-import butterknife.Unbinder;
-
 /**
  * Created by zhanghao on 2017/4/15.
  */

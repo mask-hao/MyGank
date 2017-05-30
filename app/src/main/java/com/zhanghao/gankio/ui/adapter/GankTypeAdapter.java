@@ -72,6 +72,7 @@ public class GankTypeAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, 
                 ImageView iv = helper.getView(R.id.gankitem_iv);
                 if (item instanceof GankContent) {
                     GankContent gankContent = (GankContent) item;
+                    assert likeBt != null;
                     likeBt.setTag(gankContent.get_id());
                     helper.setText(R.id.gankitem_title_tv, gankContent.getDesc());
                     helper.setText(R.id.gankitem_source_tv, "来源：" + gankContent.getSource());
@@ -97,6 +98,7 @@ public class GankTypeAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, 
             case Constant.CONTENT:
                 if (item instanceof GankContent) {
                     GankContent gankContent = (GankContent) item;
+                    assert likeBt != null;
                     likeBt.setTag(gankContent.get_id());
                     helper.setText(R.id.gankitem_title_tv, gankContent.getDesc());
                     helper.setText(R.id.gankitem_source_tv, "来源：" + gankContent.getSource());

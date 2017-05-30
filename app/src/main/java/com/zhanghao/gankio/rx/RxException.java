@@ -1,9 +1,5 @@
 package com.zhanghao.gankio.rx;
 
-import com.zhanghao.gankio.util.LogUtil;
-
-import java.io.EOFException;
-import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 

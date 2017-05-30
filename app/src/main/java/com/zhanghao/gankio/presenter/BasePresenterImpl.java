@@ -1,7 +1,5 @@
 package com.zhanghao.gankio.presenter;
 
-import com.zhanghao.gankio.util.LogUtil;
-
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 

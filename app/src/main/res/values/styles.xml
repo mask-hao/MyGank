@@ -11,6 +11,7 @@
         <item name="colorControlNormal">@color/colorPrimary</item>
         <item name="colorControlActivated">@color/colorPrimary</item>
         <item name="colorControlHighlight">@color/md_blue_200</item>
+        <item name="android:statusBarColor">@color/transparent</item>
     </style>
 
 

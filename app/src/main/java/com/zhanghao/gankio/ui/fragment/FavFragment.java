@@ -188,8 +188,8 @@ public class FavFragment extends BaseFragment<GankContract.FavPresenter> impleme
             favAdapter.setOnItemLongClickListener((adapter, view, position) -> {
                 alertDialog = new AlertDialog.Builder(getContext())
                         .setCancelable(true)
-                        .setMessage(R.string.dodelete)
-                        .setNegativeButton(R.string.cancle, (dialog, which) -> {
+                        .setMessage(R.string.do_delete)
+                        .setNegativeButton(R.string.cancel, (dialog, which) -> {
                             alertDialog.dismiss();
                         })
                         .setPositiveButton(R.string.sure, (dialog, which) -> {

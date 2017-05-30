@@ -6,8 +6,6 @@ import com.zhanghao.gankio.BaseApplication;
 import com.zhanghao.gankio.entity.Constant;
 import com.zhanghao.gankio.entity.User;
 
-import java.io.Serializable;
-
 /**
  * Created by zhanghao on 2017/4/22.
  */

@@ -1,8 +1,6 @@
 package com.zhanghao.gankio.entity;
 
-import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
-import com.zhanghao.gankio.contract.GankContract;
 
 import java.util.List;
 

@@ -1,8 +1,6 @@
 package com.zhanghao.gankio.entity;
 
 
-import android.content.Context;
-
 /**
  * Created by 张浩 on 2017/1/23.
  */

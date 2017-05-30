@@ -2,7 +2,6 @@ package com.zhanghao.gankio.api;
 
 import com.zhanghao.gankio.entity.AppInfo;
 
-import io.reactivex.Observable;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;

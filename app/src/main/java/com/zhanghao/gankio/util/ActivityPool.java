@@ -26,6 +26,13 @@ public class ActivityPool {
     }
 
     public static void finishAll(){
+
+
+//        activityList.forEach(activity -> {
+//            if (!activity.isFinishing())
+//                activity.finish();
+//        });
+
         for (Activity activity : activityList) {
             if (!activity.isFinishing())
                 activity.finish();

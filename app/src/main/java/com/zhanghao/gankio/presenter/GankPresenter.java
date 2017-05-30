@@ -1,7 +1,6 @@
 package com.zhanghao.gankio.presenter;
 
 import android.content.Context;
-import android.view.View;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.zhanghao.gankio.contract.GankContract;
@@ -23,10 +22,6 @@ import com.zhanghao.gankio.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by zhanghao on 2017/4/20.

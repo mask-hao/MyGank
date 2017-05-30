@@ -2,7 +2,6 @@ package com.zhanghao.gankio.util;
 
 import android.content.Context;
 import android.graphics.Point;
-import android.os.Build;
 import android.view.WindowManager;
 
 import com.zhanghao.gankio.entity.Constant;
@@ -46,8 +45,7 @@ public class ComUtil {
             int j = md.length;
             char str[] = new char[j * 2];
             int k = 0;
-            for (int i = 0; i < j; i++) {
-                byte byte0 = md[i];
+            for (byte byte0 : md) {
                 str[k++] = hexDigits[byte0 >>> 4 & 0xf];
                 str[k++] = hexDigits[byte0 & 0xf];
             }
@@ -86,7 +84,7 @@ public class ComUtil {
 
     public static String getFormatDate(String date){
         SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
-        Date date1= null;
+        Date date1;
         try {
             date1 = dateFormat.parse(date);
         } catch (ParseException e) {
@@ -100,7 +98,7 @@ public class ComUtil {
 
     public static float getScreenWidth(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        int width = 0;
+        int width;
         Point size = new Point();
         wm.getDefaultDisplay().getSize(size);
         width = size.x;

@@ -1,12 +1,5 @@
 package com.zhanghao.gankio.entity;
 
-import android.content.Context;
-
-import com.zhanghao.gankio.R;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by zhanghao on 2017/4/29.
  */

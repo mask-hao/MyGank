@@ -10,10 +10,7 @@ import com.zhanghao.gankio.rx.RxHelper;
 import com.zhanghao.gankio.rx.RxObserver;
 import com.zhanghao.gankio.util.LogUtil;
 
-import java.io.File;
-
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
 /**
  * Created by zhanghao on 2017/4/22.

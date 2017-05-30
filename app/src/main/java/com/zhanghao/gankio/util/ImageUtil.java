@@ -15,10 +15,8 @@ import android.provider.MediaStore;
 import com.zhanghao.gankio.entity.User;
 
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 

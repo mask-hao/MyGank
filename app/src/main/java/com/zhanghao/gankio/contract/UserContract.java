@@ -1,10 +1,8 @@
 package com.zhanghao.gankio.contract;
 import com.zhanghao.gankio.entity.User;
 import com.zhanghao.gankio.presenter.BasePresenter;
-import java.io.File;
 
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
 /**
  * Created by zhanghao on 2017/4/22.

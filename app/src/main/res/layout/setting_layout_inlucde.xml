@@ -46,7 +46,7 @@
                         <TextView
 
                             android:layout_marginStart="@dimen/image_paddingSize"
-                            android:text="@string/wifi_img_only_samll"
+                            android:text="@string/wifi_img_only_small"
                             android:textSize="@dimen/small_tv_size"
                             android:textColor="@color/colorTextViewGrey"
                             android:layout_width="match_parent"

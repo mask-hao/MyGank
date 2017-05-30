@@ -1,7 +1,5 @@
 package com.zhanghao.gankio.entity;
 
-import com.chad.library.adapter.base.entity.MultiItemEntity;
-import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;

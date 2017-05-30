@@ -1,13 +1,10 @@
 package com.zhanghao.gankio.contract;
 
 import android.content.Context;
-import android.view.View;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.zhanghao.gankio.entity.GankFavContent;
-import com.zhanghao.gankio.entity.GankItem;
 import com.zhanghao.gankio.entity.GankSearchItem;
-import com.zhanghao.gankio.entity.GankSection;
 import com.zhanghao.gankio.entity.MoreEntity;
 import com.zhanghao.gankio.entity.User;
 import com.zhanghao.gankio.presenter.BaseGankPresenter;

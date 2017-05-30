@@ -1,7 +1,6 @@
 package com.zhanghao.gankio.ui.activity;
 
 import android.Manifest;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -9,7 +8,6 @@ import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.zhanghao.gankio.BuildConfig;
 import com.zhanghao.gankio.R;
 import com.zhanghao.gankio.entity.Constant;
 import com.zhanghao.gankio.listener.HomeFrgListener;
@@ -164,7 +162,7 @@ public class MainActivity extends BaseActivity implements HomeFrgListener, NewAp
                             s+="等权限";
                             builder.setTitle("缺少权限")
                                     .setMessage(s)
-                                    .setNegativeButton(R.string.cancle, (dialog1, which1) -> {
+                                    .setNegativeButton(R.string.cancel, (dialog1, which1) -> {
                                         alertDialog.dismiss();
                                     })
                                     .setPositiveButton(R.string.goSetting, (dialog12, which12) -> {

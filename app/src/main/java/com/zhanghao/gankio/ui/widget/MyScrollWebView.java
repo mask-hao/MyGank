@@ -1,7 +1,6 @@
 package com.zhanghao.gankio.ui.widget;
 
 import android.content.Context;
-import android.nfc.Tag;
 import android.util.AttributeSet;
 import android.webkit.WebView;
 

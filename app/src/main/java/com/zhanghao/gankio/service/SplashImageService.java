@@ -5,16 +5,11 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.zhanghao.gankio.entity.CommonResponse;
 import com.zhanghao.gankio.model.GankDataRepository;
 import com.zhanghao.gankio.model.GankDataSource;
-import com.zhanghao.gankio.rx.RxHelper;
-import com.zhanghao.gankio.rx.RxObserver;
 import com.zhanghao.gankio.util.SharedPrefsUtils;
 
-import java.io.File;
 import java.io.IOException;
 
 import retrofit2.Call;

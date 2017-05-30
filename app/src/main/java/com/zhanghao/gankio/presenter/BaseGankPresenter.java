@@ -1,5 +1,4 @@
 package com.zhanghao.gankio.presenter;
-import android.view.View;
 import com.zhanghao.gankio.entity.GankContent;
 import com.zhanghao.gankio.entity.User;
 

@@ -4,7 +4,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zhanghao.gankio.R;
 import com.zhanghao.gankio.entity.GankSearchItem;
-import com.zhanghao.gankio.util.LogUtil;
 
 import java.util.List;
 

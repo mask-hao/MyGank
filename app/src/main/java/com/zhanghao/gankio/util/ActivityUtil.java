@@ -17,6 +17,7 @@ import com.zhanghao.gankio.ui.activity.SearchActivity;
 import com.zhanghao.gankio.ui.activity.SettingActivity;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by zhanghao on 2017/3/17.
@@ -49,12 +50,10 @@ public class ActivityUtil {
 
     public static void gotoPhotoActivity(Context context,List<MultiItemEntity> list,int pos){
         ArrayList<String> urls=new ArrayList<>();
-        for (MultiItemEntity itemEntity : list) {
-            if (itemEntity instanceof GankContent){
-                GankContent content= (GankContent) itemEntity;
-                urls.add(content.getUrl());
-            }
-        }
+        list.stream().filter(itemEntity -> itemEntity instanceof GankContent).forEach(itemEntity -> {
+            GankContent content = (GankContent) itemEntity;
+            urls.add(content.getUrl());
+        });
         Intent intent = new Intent(context, PhotoActivity.class);
         intent.putStringArrayListExtra("urls",urls);
         intent.putExtra("position",pos);
@@ -70,9 +69,7 @@ public class ActivityUtil {
         GankSection section= (GankSection) itemEntities.get(pos);
         int realPos=list.indexOf(section);
         LogUtil.d(TAG,realPos);
-        for (GankSection gankSection : list) {
-            urls.add(gankSection.getContent().getUrl());
-        }
+        urls.addAll(list.stream().map(gankSection -> gankSection.getContent().getUrl()).collect(Collectors.toList()));
         Intent intent = new Intent(context, PhotoActivity.class);
         intent.putStringArrayListExtra("urls",urls);
         intent.putExtra("position",realPos);

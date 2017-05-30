@@ -3,7 +3,6 @@ package com.zhanghao.gankio.model;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
 
 /**
  * Created by zhanghao on 2017/5/5.

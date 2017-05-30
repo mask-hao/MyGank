@@ -110,8 +110,8 @@ public class SettingActivity extends BaseActivity implements UserContract.Logout
 
     private void showClearCacheDialog() {
         alertDialog = new AlertDialog.Builder(this).setCancelable(true)
-                .setMessage(R.string.doclearCache)
-                .setNegativeButton(R.string.cancle, (dialog, which) -> {
+                .setMessage(R.string.do_clearCache)
+                .setNegativeButton(R.string.cancel, (dialog, which) -> {
                     alertDialog.dismiss();
                 })
                 .setPositiveButton(R.string.sure, (dialog, which) -> {
@@ -126,7 +126,7 @@ public class SettingActivity extends BaseActivity implements UserContract.Logout
     }
 
     private void showLogoutDialog() {
-        alertDialog = new AlertDialog.Builder(this).setMessage(R.string.dologout)
+        alertDialog = new AlertDialog.Builder(this).setMessage(R.string.do_logout)
                 .setCancelable(true)
                 .setPositiveButton(R.string.sure, (dialog, which) -> {
                     if (!User.getInstance().getUserToken().isEmpty())
@@ -134,7 +134,7 @@ public class SettingActivity extends BaseActivity implements UserContract.Logout
                     else
                         alertDialog.dismiss();
                 })
-                .setNegativeButton(R.string.cancle, ((dialog, which) -> {
+                .setNegativeButton(R.string.cancel, ((dialog, which) -> {
                     alertDialog.dismiss();
                 }))
                 .show();
@@ -205,7 +205,7 @@ public class SettingActivity extends BaseActivity implements UserContract.Logout
                         .setCancelable(true)
                         .setTitle("缺少权限")
                         .setMessage(s)
-                        .setNegativeButton(R.string.cancle, (dialog, which) -> {
+                        .setNegativeButton(R.string.cancel, (dialog, which) -> {
                             alertDialog.dismiss();
                         })
                         .setPositiveButton(R.string.goSetting,((dialog, which) -> {
