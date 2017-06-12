@@ -32,7 +32,7 @@ import butterknife.BindView;
  * Created by zhanghao on 2017/4/28.
  */
 
-public class SettingActivity extends BaseActivity implements UserContract.LogoutView, NewApkListener, NewVersionListener {
+public class SettingActivity extends BaseActivity implements UserContract.LogoutView{
     private static final String TAG = "SettingActivity";
     @BindView(R.id.setting_sw)
     Switch settingSw;
@@ -88,12 +88,13 @@ public class SettingActivity extends BaseActivity implements UserContract.Logout
         settingCheckUpdateLl.setOnClickListener(v->{
             checkUpdate();
         });
+        settingAboutLl.setOnClickListener(v->{
+            ActivityUtil.gotoAboutBrowser(this);
+        });
     }
 
     private void checkUpdate() {
         ServiceUtil.startFirRemoteService(this,Constant.GET_APP_INFO);
-        FirRemoteService.setNewApkListener(this);
-        FirRemoteService.setNewVersionListener(this);
     }
 
     private void initWifiSwitch() {
@@ -174,51 +175,6 @@ public class SettingActivity extends BaseActivity implements UserContract.Logout
         super.onDestroy();
     }
 
-    @Override
-    public void findNewApk(String updateInfo, String downloadUrl, long size) {
-        requestRunTimePermissions(COMMON_PERMISSIONS, new PermissionListener() {
-            @Override
-            public void onGranted() {
-                alertDialog=new AlertDialog.Builder(SettingActivity.this)
-                        .setCancelable(true)
-                        .setTitle("发现新版本")
-                        .setMessage(updateInfo)
-                        .setNegativeButton(R.string.nextTime, (dialog, which) -> {
-                            alertDialog.dismiss();
-                        })
-                        .setPositiveButton(R.string.sure,((dialog, which) -> {
-                            ServiceUtil.startFirRemoteService(SettingActivity.this,Constant.DOWNLOAD_NEW_APK,downloadUrl,size);
-                            alertDialog.dismiss();
-                        }))
-                        .show();
-            }
 
-            @Override
-            public void onDenied(List<String> deniedPermissions) {
-                String s="缺少：";
-                for (String deniedPermission : deniedPermissions) {
-                    s+=deniedPermission;
-                }
-                s+="等权限";
 
-                alertDialog=new AlertDialog.Builder(SettingActivity.this)
-                        .setCancelable(true)
-                        .setTitle("缺少权限")
-                        .setMessage(s)
-                        .setNegativeButton(R.string.cancel, (dialog, which) -> {
-                            alertDialog.dismiss();
-                        })
-                        .setPositiveButton(R.string.goSetting,((dialog, which) -> {
-                            ActivityUtil.gotoSetting(SettingActivity.this);
-                            alertDialog.dismiss();
-                        }))
-                        .show();
-            }
-        });
-    }
-
-    @Override
-    public void showToast() {
-        Toast.makeText(this,"已经安装最新版本",Toast.LENGTH_SHORT).show();
-    }
 }

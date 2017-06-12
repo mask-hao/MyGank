@@ -60,7 +60,10 @@
             android:exported="false"/>
 
 
-        <meta-data android:value="" android:name="BUG_HD_SDK_GENERAL_KEY" />
+        <meta-data android:value="d7bd313c39d7215ff6e217d2f4ff7c62" android:name="BUG_HD_SDK_GENERAL_KEY" />
+
+
+        <activity android:name=".ui.activity.DialogActivity" android:theme="@style/Theme.Transparent"/>
 
     </application>
 

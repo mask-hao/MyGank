@@ -5,6 +5,29 @@
     android:background="@color/colorViewGroupBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:background="@color/colorViewGroupBackground"
+            android:clickable="true"
+            android:visibility="gone"
+            android:id="@+id/load_failed_ll"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/load_failed_tv"
+                android:padding="15dp"
+                android:clickable="true"
+                android:textColor="@color/colorTextViewGrey"
+                android:text="@string/load_failed_me"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/ganktype_srl"
         android:layout_width="match_parent"
@@ -14,6 +37,6 @@
          android:layout_width="match_parent"
          android:layout_height="match_parent"/>
     </android.support.v4.widget.SwipeRefreshLayout>
+    </LinearLayout>
     <include layout="@layout/toolbar_include"/>
-
 </FrameLayout>

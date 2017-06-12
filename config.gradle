@@ -16,4 +16,5 @@ ext{
     baseAdapter='2.9.9'
     photoViewVersion='2.0.0'
     likeBtVersion='0.2.0'
+    leakCanaryVersion='1.5.1'
 }

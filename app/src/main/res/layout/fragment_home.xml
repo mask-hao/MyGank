@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@color/colorViewGroupBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <LinearLayout
+        android:background="@color/colorViewGroupBackground"
+        android:clickable="true"
+        android:visibility="gone"
+        android:id="@+id/load_failed_ll"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/load_failed_tv"
+            android:padding="15dp"
+            android:clickable="true"
+            android:textColor="@color/colorTextViewGrey"
+            android:text="@string/load_failed_me"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+<RelativeLayout
     android:background="@color/colorViewGroupBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -29,3 +53,4 @@
         app:borderWidth="1dp"
         />
 </RelativeLayout>
+</LinearLayout>

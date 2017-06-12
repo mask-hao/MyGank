@@ -7,12 +7,15 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
 import android.support.v4.app.NotificationCompat;
+import android.widget.Toast;
 
+import com.zhanghao.gankio.BaseApplication;
 import com.zhanghao.gankio.BuildConfig;
 import com.zhanghao.gankio.R;
 import com.zhanghao.gankio.entity.AppInfo;
@@ -22,6 +25,9 @@ import com.zhanghao.gankio.listener.NewApkListener;
 import com.zhanghao.gankio.listener.NewVersionListener;
 import com.zhanghao.gankio.model.FirDataRepository;
 import com.zhanghao.gankio.model.FirDataSource;
+import com.zhanghao.gankio.ui.activity.MainActivity;
+import com.zhanghao.gankio.util.ActivityPool;
+import com.zhanghao.gankio.util.ActivityUtil;
 import com.zhanghao.gankio.util.LogUtil;
 
 import java.io.BufferedInputStream;
@@ -45,16 +51,16 @@ public class FirRemoteService extends IntentService{
     private NotificationCompat.Builder mBuilder;
     private NotificationManager mManager;
     private int totalFileSize;
-    private static NewApkListener mNewApkListener;
-    private static NewVersionListener newVersionListener;
-
-    public static void setNewVersionListener(NewVersionListener newVersionListener) {
-        FirRemoteService.newVersionListener = newVersionListener;
-    }
-
-    public static void setNewApkListener(NewApkListener mNewApkListener) {
-        FirRemoteService.mNewApkListener = mNewApkListener;
-    }
+//    private static NewApkListener mNewApkListener;
+//    private static NewVersionListener newVersionListener;
+//
+//    public static void setNewVersionListener(NewVersionListener newVersionListener) {
+//        FirRemoteService.newVersionListener = newVersionListener;
+//    }
+//
+//    public static void setNewApkListener(NewApkListener mNewApkListener) {
+//        FirRemoteService.mNewApkListener = mNewApkListener;
+//    }
 
     public FirRemoteService() {
         super("");
@@ -85,9 +91,7 @@ public class FirRemoteService extends IntentService{
         }
     }
 
-
 //    --------------------------------------------------------
-
 
     private void downloadNewApk(String url, long size) {
         mManager= (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -155,9 +159,21 @@ public class FirRemoteService extends IntentService{
         mBuilder.setContentText("文件下载完成！");
         Intent intent = new Intent(Intent.ACTION_VIEW);
         File downloadFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "GankIo.apk");
-        Uri uri = FileProvider.getUriForFile(this, "com.zhanghao.gankio.fileprovider", downloadFile);
-        intent.setDataAndType(uri, "application/vnd.android.package-archive");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+        Uri fileUri;
+
+        if (Build.VERSION.SDK_INT>=24){
+            fileUri = FileProvider.getUriForFile(this, "com.zhanghao.gankio.fileprovider", downloadFile);
+        }else
+            fileUri = Uri.fromFile(downloadFile);
+
+        intent.setDataAndType(fileUri, "application/vnd.android.package-archive");
+
+        intent.setFlags(
+                          Intent.FLAG_ACTIVITY_NEW_TASK
+                        | Intent.FLAG_GRANT_READ_URI_PERMISSION
+                        | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         mBuilder.setContentIntent(pendingIntent);
         mManager.notify(0, mBuilder.build());
@@ -184,16 +200,16 @@ public class FirRemoteService extends IntentService{
             showNewAppDialog(appInfo.getChangelog(),appInfo.getDirect_install_url(),appInfo.getBinary().getFsize());
         }else{
             new Handler(getMainLooper()).post(()->{
-                if (newVersionListener!=null)
-                    newVersionListener.showToast();
+                if (! (ActivityPool.getTopActivity() instanceof MainActivity))
+                    Toast.makeText(BaseApplication.getContext(),"已经是最新版本",Toast.LENGTH_SHORT).show();
             });
         }
     }
 
     private void showNewAppDialog(String changeLog,String url,long size) {
+       
         new Handler(getMainLooper()).post(()->{
-            if (mNewApkListener!=null)
-                mNewApkListener.findNewApk(changeLog,url,size);
+            ActivityUtil.gotoDialogActivity(BaseApplication.getContext(),changeLog,url,size);
         });
 
     }

@@ -35,6 +35,10 @@ public class RxException{
     }
 
     private static String progressHttpErrorCode(int t) {
+
+        if (t == 504)
+            return CONNECTION_ERROR;
+
         int errorCode=t/100;
         switch (errorCode){
             case 4:

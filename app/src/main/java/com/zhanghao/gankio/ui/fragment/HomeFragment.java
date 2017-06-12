@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -29,6 +31,7 @@ import com.zhanghao.gankio.ui.widget.CustomLoadMore;
 import com.zhanghao.gankio.ui.widget.MyFloatingActionButton;
 import com.zhanghao.gankio.util.ActivityUtil;
 import com.zhanghao.gankio.util.ComUtil;
+import com.zhanghao.gankio.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,11 +55,15 @@ public class HomeFragment extends BaseFragment<GankContract.DailyPresenter> impl
     SwipeRefreshLayout gankhomeSrl;
     @BindView(R.id.home_search_fab)
     MyFloatingActionButton homeSearchFab;
+    @BindView(R.id.load_failed_tv)
+    TextView loadFailedTv;
+    @BindView(R.id.load_failed_ll)
+    LinearLayout loadFailedLl;
     private HomeAdapter homeDataAdapter;
     private List<MultiItemEntity> mDatas = new ArrayList<>();
     private List<Integer> dateList = new ArrayList<>();
     private int curStatusCode;
-    private static int page = 1;
+    private int page = 1;
     private HomeFrgListener homeFrgListener;
     public static String currentTitle = "主页";
     private List<GankSection> gankSections = new ArrayList<>();
@@ -68,8 +75,8 @@ public class HomeFragment extends BaseFragment<GankContract.DailyPresenter> impl
     }
 
 
-    public static HomeFragment getInstance(){
-        HomeFragment homeFragment=new HomeFragment();
+    public static HomeFragment getInstance() {
+        HomeFragment homeFragment = new HomeFragment();
         new GankPresenter(homeFragment, GankDataRepository.getInstance());
         return homeFragment;
     }
@@ -85,7 +92,7 @@ public class HomeFragment extends BaseFragment<GankContract.DailyPresenter> impl
     }
 
     private void initView() {
-        homeSearchFab.setOnClickListener(v->{
+        homeSearchFab.setOnClickListener(v -> {
             ActivityUtil.gotoSearchActivity(getContext());
         });
         gankhomeSrl.setColorSchemeResources(
@@ -100,10 +107,26 @@ public class HomeFragment extends BaseFragment<GankContract.DailyPresenter> impl
         });
         gankDailyLv.setLayoutManager(new LinearLayoutManager(getContext()));
         gankDailyLv.addOnScrollListener(recyclerScrollListener);
+
+        initData();
+
+        loadFailedTv.setOnClickListener(v -> {
+            initData();
+            loadFailedLl.setVisibility(View.GONE);
+        });
+
+    }
+
+
+
+    private void initData(){
         if (mPresenter != null)
             mPresenter.getDailyData(String.valueOf(page), false, false);
         dateList.add(0);
     }
+
+
+
 
 
     private RecyclerScrollListener recyclerScrollListener = new RecyclerScrollListener() {
@@ -144,8 +167,8 @@ public class HomeFragment extends BaseFragment<GankContract.DailyPresenter> impl
 
     private void setToolbarTitle(int position) {
 
-//        LogUtil.d(TAG, "pos: " + String.valueOf(position));
-//        LogUtil.d(TAG,"cur: "+String.valueOf(curStatusCode));
+
+        if (position==-1) return;
 
         MultiItemEntity itemEntity = mDatas.get(position);
         if (itemEntity instanceof GankSection && itemEntity.getItemType() == Constant.IMG) {
@@ -219,6 +242,10 @@ public class HomeFragment extends BaseFragment<GankContract.DailyPresenter> impl
             });
         if (homeDataAdapter != null)
             homeDataAdapter.loadMoreFail();
+
+        //加载失败
+        if (loadFailedLl.getVisibility()==View.GONE && page==1 && mDatas.size()==0)
+            loadFailedLl.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -228,6 +255,7 @@ public class HomeFragment extends BaseFragment<GankContract.DailyPresenter> impl
 
     @Override
     public void setUpDailyData(List<MultiItemEntity> datas, boolean isRefresh, boolean isLoadMore) {
+
         //首次加载
         if (!isRefresh && !isLoadMore) {
             mDatas.addAll(datas);
@@ -338,6 +366,6 @@ public class HomeFragment extends BaseFragment<GankContract.DailyPresenter> impl
     @Override
     public void onDestroy() {
         super.onDestroy();
-        page=1;
+        page = 1;
     }
 }

@@ -57,4 +57,7 @@ dependencies {
     compile 'skin.support:skin-support-design:1.2.4'
     compile 'skin.support:skin-support-cardview:1.2.0'
     compile files('libs/Bughd_android_sdk_v1.3.7.jar')
+    debugCompile "com.squareup.leakcanary:leakcanary-android:$rootProject.leakCanaryVersion"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakCanaryVersion"
+    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakCanaryVersion"
 }

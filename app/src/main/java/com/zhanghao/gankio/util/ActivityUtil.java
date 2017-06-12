@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.zhanghao.gankio.entity.GankContent;
 import com.zhanghao.gankio.entity.GankSection;
 import com.zhanghao.gankio.ui.activity.DetailActivity;
+import com.zhanghao.gankio.ui.activity.DialogActivity;
 import com.zhanghao.gankio.ui.activity.FavActivity;
 import com.zhanghao.gankio.ui.activity.GankTypeListActivity;
 import com.zhanghao.gankio.ui.activity.MainActivity;
@@ -50,10 +51,20 @@ public class ActivityUtil {
 
     public static void gotoPhotoActivity(Context context,List<MultiItemEntity> list,int pos){
         ArrayList<String> urls=new ArrayList<>();
-        list.stream().filter(itemEntity -> itemEntity instanceof GankContent).forEach(itemEntity -> {
-            GankContent content = (GankContent) itemEntity;
-            urls.add(content.getUrl());
-        });
+//        list.stream().filter(itemEntity -> itemEntity instanceof GankContent).forEach(itemEntity -> {
+//            GankContent content = (GankContent) itemEntity;
+//            urls.add(content.getUrl());
+//        });
+
+        for (MultiItemEntity itemEntity : list) {
+            if (itemEntity instanceof GankContent){
+                GankContent content = (GankContent) itemEntity;
+                urls.add(content.getUrl());
+            }
+        }
+
+
+
         Intent intent = new Intent(context, PhotoActivity.class);
         intent.putStringArrayListExtra("urls",urls);
         intent.putExtra("position",pos);
@@ -69,7 +80,12 @@ public class ActivityUtil {
         GankSection section= (GankSection) itemEntities.get(pos);
         int realPos=list.indexOf(section);
         LogUtil.d(TAG,realPos);
-        urls.addAll(list.stream().map(gankSection -> gankSection.getContent().getUrl()).collect(Collectors.toList()));
+//        urls.addAll(list.stream().map(gankSection -> gankSection.getContent().getUrl()).collect(Collectors.toList()));
+
+        for (GankSection gankSection : list) {
+            urls.add(gankSection.getContent().getUrl());
+        }
+
         Intent intent = new Intent(context, PhotoActivity.class);
         intent.putStringArrayListExtra("urls",urls);
         intent.putExtra("position",realPos);
@@ -87,5 +103,20 @@ public class ActivityUtil {
     public static void gotoSetting(Context context) {
         Uri uri=Uri.parse("package:" + context.getPackageName());
         context.startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,uri));
+    }
+
+    public static void gotoDialogActivity(Context context,String changeLog, String url, long size) {
+        Intent intent = new Intent(context, DialogActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("changeLog",changeLog);
+        intent.putExtra("url",url);
+        intent.putExtra("size",size);
+        context.startActivity(intent);
+    }
+
+    public static void gotoAboutBrowser(Context context) {
+        Uri uri = Uri.parse("https://github.com/mask-hao/MyGank");
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        context.startActivity(intent);
     }
 }

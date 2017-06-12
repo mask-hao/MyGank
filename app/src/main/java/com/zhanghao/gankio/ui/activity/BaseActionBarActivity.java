@@ -51,7 +51,6 @@ public abstract class  BaseActionBarActivity extends SkinCompatActivity{
 
     }
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();

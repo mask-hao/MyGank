@@ -37,4 +37,5 @@
     <string name="nextTime">下次再说</string>
     <string name="download">下载</string>
     <string name="goSetting">去设置</string>
+    <string name="load_failed_me">加载失败，请点我重试</string>
 </resources>

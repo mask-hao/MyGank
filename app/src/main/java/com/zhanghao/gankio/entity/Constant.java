@@ -61,7 +61,7 @@ public class Constant {
     public static final String APP="App";
 
     //常量数据码
-    public static final String BASE_URL = "http://maskhao.cn:8080";
+    public static final String BASE_URL = "http://115.159.23.58:8080";
     public static final String USER_TOKEN = "token";
     public static final String USER_NAME = "username";
     public static final String USER_ACCOUNT="account";

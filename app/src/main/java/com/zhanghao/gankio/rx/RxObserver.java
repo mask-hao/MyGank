@@ -28,8 +28,10 @@ public  abstract class RxObserver<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable t) {
-        LogUtil.d(TAG,t.getMessage());
-        t.printStackTrace();
+        if (t!=null && t.getMessage()!=null){
+            LogUtil.d(TAG,t.getMessage());
+            t.printStackTrace();
+        }
         onFail(RxException.getErrorMessage(t));
     }
 

@@ -22,7 +22,7 @@ import com.zhanghao.gankio.util.UserUtil;
 import java.util.List;
 
 
-public class MainActivity extends BaseActivity implements HomeFrgListener, NewApkListener {
+public class MainActivity extends BaseActivity implements HomeFrgListener {
 
     private static final String TAG = "MainActivity";
     MyBottomNavigationView navigation;
@@ -85,7 +85,6 @@ public class MainActivity extends BaseActivity implements HomeFrgListener, NewAp
 
     private void initOtherService() {
         ServiceUtil.startFirRemoteService(this,Constant.GET_APP_INFO);
-        FirRemoteService.setNewApkListener(this);
     }
 
 
@@ -128,57 +127,10 @@ public class MainActivity extends BaseActivity implements HomeFrgListener, NewAp
     }
 
 
-
-
-
-
     @Override
     public void setToolbarTitle(String title) {
         mToolbar.setTitle(title);
     }
 
-    @Override
-    public void findNewApk(String updateInfo, String downloadUrl, long size) {
-       AlertDialog.Builder builder=new AlertDialog.Builder(this);
-       builder.setCancelable(true)
-                .setTitle("发现新版本")
-                .setMessage(updateInfo)
-                .setNegativeButton(R.string.nextTime, (dialog, which) -> {
-                    alertDialog.dismiss();
-                })
-                .setPositiveButton(R.string.sure,((dialog, which) -> {
-                    requestRunTimePermissions(COMMON_PERMISSIONS, new PermissionListener() {
-                        @Override
-                        public void onGranted() {
-                            ServiceUtil.startFirRemoteService(MainActivity.this,Constant.DOWNLOAD_NEW_APK,downloadUrl,size);
-                            alertDialog.dismiss();
-                        }
-                        @Override
-                        public void onDenied(List<String> deniedPermissions) {
-                            String s="缺少：";
-                            for (String deniedPermission : deniedPermissions) {
-                                s+=deniedPermission;
-                            }
-                            s+="等权限";
-                            builder.setTitle("缺少权限")
-                                    .setMessage(s)
-                                    .setNegativeButton(R.string.cancel, (dialog1, which1) -> {
-                                        alertDialog.dismiss();
-                                    })
-                                    .setPositiveButton(R.string.goSetting, (dialog12, which12) -> {
-                                        ActivityUtil.gotoSetting(MainActivity.this);
-                                    });
-                            showDialog(builder);
-                        }
-                    });
-                }));
-        showDialog(builder);
-
-    }
-
-    private void showDialog(AlertDialog.Builder builder){
-        alertDialog=builder.create();
-        alertDialog.show();
-    }
 
 }
