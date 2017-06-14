@@ -12,21 +12,19 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.zhanghao.gankio.R;
 import com.zhanghao.gankio.contract.GankContract;
 import com.zhanghao.gankio.entity.Constant;
 import com.zhanghao.gankio.entity.GankSearchItem;
-import com.zhanghao.gankio.model.GankDataRepository;
-import com.zhanghao.gankio.presenter.GankPresenter;
+import com.zhanghao.gankio.model.GankDataLocalRepository;
+import com.zhanghao.gankio.model.GankDataRemoteRepository;
+import com.zhanghao.gankio.presenter.GankSearchPresenter;
 import com.zhanghao.gankio.ui.adapter.SearchHistoryAdapter;
 import com.zhanghao.gankio.ui.adapter.SearchResultAdapter;
 import com.zhanghao.gankio.ui.widget.CustomLoadMore;
 import com.zhanghao.gankio.util.ActivityUtil;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -34,7 +32,7 @@ import butterknife.ButterKnife;
  * Created by zhanghao on 2017/5/5.
  */
 
-public class SearchActivity extends BaseActivity<GankContract.SearchPresenter> implements GankContract.SearchView {
+public class SearchActivity extends BaseToolbarActivity implements GankContract.SearchLocalView,GankContract.SearchRemoteView{
     private static final String TAG = "SearchActivity";
     @BindView(R.id.gank_search_sv)
     SearchView gankSearchSv;
@@ -51,10 +49,10 @@ public class SearchActivity extends BaseActivity<GankContract.SearchPresenter> i
     private List<GankSearchItem> mDatas = new ArrayList<>();
     private List<GankSearchItem> mMockDatas = new ArrayList<>();
     private List<String> mHistoryDatas = new ArrayList<>();
-
     private int mPage = 1;
+    private GankSearchPresenter mGankSearchPresenter;
 
-    @Override
+
     protected int setContentLayout() {
         return R.layout.activity_search;
     }
@@ -68,13 +66,16 @@ public class SearchActivity extends BaseActivity<GankContract.SearchPresenter> i
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        new GankPresenter(this, GankDataRepository.getInstance());
+        mGankSearchPresenter = new GankSearchPresenter(
+                this, this,
+                GankDataLocalRepository.getInstance(),
+                GankDataRemoteRepository.getInstance());
         initView();
         initData();
     }
 
     private void initData() {
-        mPresenter.getSearchHistory(this);
+        mGankSearchPresenter.getSearchHistory(this);
     }
 
     private void initView() {
@@ -102,7 +103,7 @@ public class SearchActivity extends BaseActivity<GankContract.SearchPresenter> i
                     mMockDatas.clear();
                     mResultAdapter.notifyDataSetChanged();
                 }
-                mPresenter.getSearchResult(SearchActivity.this, query.trim(), false);
+                mGankSearchPresenter.getSearchResult(SearchActivity.this, query.trim(), false);
                 return false;
             }
 
@@ -135,16 +136,13 @@ public class SearchActivity extends BaseActivity<GankContract.SearchPresenter> i
             searchFrameErrorView.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void setPresenter(GankContract.SearchPresenter presenter) {
-        mPresenter = presenter;
-    }
+
 
     @Override
-    public void setUpSearchResult(List<GankSearchItem> datas, boolean isLoadMore) {
-
+    public void setUpSearchResult(String word,List<GankSearchItem> datas, boolean isLoadMore) {
 
         if (!isLoadMore) {
+            mGankSearchPresenter.updateSearchHistory(this,word);//加入历史搜索
             mDatas.addAll(datas);
             mockDatas(mPage);
             mResultAdapter = new SearchResultAdapter(R.layout.gank_search_result_item, mMockDatas);
@@ -157,7 +155,7 @@ public class SearchActivity extends BaseActivity<GankContract.SearchPresenter> i
             });
             mResultAdapter.setLoadMoreView(new CustomLoadMore());
             mResultAdapter.setOnLoadMoreListener(() -> {
-                mPresenter.getSearchResult(null, null, true);
+                mGankSearchPresenter.getSearchResult(null, null, true);
             }, gankSearchRl);
         } else {
             new Handler().postDelayed(() -> {
@@ -166,6 +164,7 @@ public class SearchActivity extends BaseActivity<GankContract.SearchPresenter> i
             }, 1000);
 
         }
+
 
     }
 
@@ -190,42 +189,53 @@ public class SearchActivity extends BaseActivity<GankContract.SearchPresenter> i
         });
         mHistoryAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             String s = mHistoryDatas.remove(position);
-            mPresenter.deleteOneHistory(this, s);
+            mGankSearchPresenter.deleteOneHistory(this, s);
             mHistoryAdapter.notifyDataSetChanged();
             if (mHistoryDatas.isEmpty())
                 mHistoryAdapter.removeAllFooterView();
         });
         mHistoryAdapter.getFooterLayout().setOnClickListener(v -> {
             mHistoryDatas.clear();
-            mPresenter.deleteAllHistory(this);
+            mGankSearchPresenter.deleteAllHistory(this);
             mHistoryAdapter.notifyDataSetChanged();
             mHistoryAdapter.removeAllFooterView();
         });
     }
-
-
+    //数据模拟   因为服务器无法分页返回
     private void mockDatas(int page) {
-        int offest = page * 20;
+        int offset = page * 20;
         int totalSize = mDatas.size();
         if (totalSize == 0) {
             showError(Constant.GET_SEARCH_DATA_ERROR);
             return;
         }
-        if (totalSize - offest >= 0) {
-            List<GankSearchItem> subList = mDatas.subList(page - 1, offest - 1);
+
+        int subSize = totalSize - offset;
+
+        if (subSize >= 20) {
+            List<GankSearchItem> subList = mDatas.subList(offset - 20, offset);
             mMockDatas.addAll(subList);
-        } else {
-            mMockDatas.addAll(mDatas.subList(page - 1, totalSize));
-        }
-        if (mMockDatas.size() == 0) {
-            Toast.makeText(this, "无结果", Toast.LENGTH_SHORT).show();
+        } else if (subSize > 0 && subSize<20){
+            mMockDatas.addAll(mDatas.subList((totalSize - mMockDatas.size()), totalSize));
+        }else{
+            mResultAdapter.loadMoreEnd();
+            return;
         }
         mPage++;
     }
-
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
     }
+
+
+
+
+    @Override
+    public void setPresenter(Object presenter) {
+        // TODO: 2017/6/13 nothing
+    }
+
+
 }

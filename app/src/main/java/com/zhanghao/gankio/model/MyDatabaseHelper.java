@@ -33,6 +33,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        if (newVersion>oldVersion){
+            String SQL = " DELETE FROM more ; ";
+            db.execSQL(SQL);
+        }
     }
 }

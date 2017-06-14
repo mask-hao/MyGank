@@ -18,8 +18,8 @@ import com.zhanghao.gankio.contract.GankContract;
 import com.zhanghao.gankio.entity.Constant;
 import com.zhanghao.gankio.entity.GankFavContent;
 import com.zhanghao.gankio.entity.User;
-import com.zhanghao.gankio.model.GankDataRepository;
-import com.zhanghao.gankio.presenter.GankPresenter;
+import com.zhanghao.gankio.model.GankDataRemoteRepository;
+import com.zhanghao.gankio.presenter.GankRemotePresenter;
 import com.zhanghao.gankio.ui.adapter.FavAdapter;
 import com.zhanghao.gankio.ui.widget.CustomLoadMore;
 import com.zhanghao.gankio.util.ActivityUtil;
@@ -48,8 +48,6 @@ public class FavFragment extends BaseFragment<GankContract.FavPresenter> impleme
     private List<MultiItemEntity> mDatas = new ArrayList<>();
     private FavAdapter favAdapter;
     private AlertDialog alertDialog;
-
-
     private boolean isVisible = false;
     private boolean isDataLoaded = false;
     private boolean isViewInit = false;
@@ -59,7 +57,7 @@ public class FavFragment extends BaseFragment<GankContract.FavPresenter> impleme
         Bundle bundle = new Bundle();
         bundle.putString("type", type);
         FavFragment favFragment = new FavFragment();
-        new GankPresenter(favFragment, GankDataRepository.getInstance());
+        new GankRemotePresenter(favFragment, GankDataRemoteRepository.getInstance());
         favFragment.setArguments(bundle);
         return favFragment;
     }
@@ -85,7 +83,7 @@ public class FavFragment extends BaseFragment<GankContract.FavPresenter> impleme
         favFrgSrl.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimary, R.color.colorPrimary, R.color.colorPrimary);
         favFrgSrl.setEnabled(false);
         favFagRl.setLayoutManager(new LinearLayoutManager(getContext()));
-//        mFavPresenter.getFavs(User.getInstance(), mType, String.valueOf(page), String.valueOf(count), false);
+
     }
 
 
@@ -184,7 +182,6 @@ public class FavFragment extends BaseFragment<GankContract.FavPresenter> impleme
                 ActivityUtil.gotoDetailActivity(getContext(), gankFavContent.getUrl(), gankFavContent.getDesc());
             });
 
-
             favAdapter.setOnItemLongClickListener((adapter, view, position) -> {
                 alertDialog = new AlertDialog.Builder(getContext())
                         .setCancelable(true)
@@ -200,6 +197,8 @@ public class FavFragment extends BaseFragment<GankContract.FavPresenter> impleme
                 return true;
             });
 
+
+
         } else {
             mDatas.addAll(data);
             favAdapter.loadMoreComplete();
@@ -214,10 +213,9 @@ public class FavFragment extends BaseFragment<GankContract.FavPresenter> impleme
 
     @Override
     public void onDeleteFavSuccess(String message, int pos) {
-
-        System.out.println(mDatas);
+       // System.out.println(mDatas);
         mDatas.remove(pos);
-        System.out.println(mDatas);
+       // System.out.println(mDatas);
         favAdapter.notifyDataSetChanged();
 
     }
@@ -227,4 +225,5 @@ public class FavFragment extends BaseFragment<GankContract.FavPresenter> impleme
     public void onDestroy() {
         super.onDestroy();
     }
+
 }

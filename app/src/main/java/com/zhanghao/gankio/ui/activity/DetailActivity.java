@@ -177,7 +177,6 @@ public class DetailActivity extends BaseActionBarActivity {
                 copyUrlToClipBard();
                 break;
             case R.id.menu_share:
-                //// TODO: 2017/4/30 分享
                 shareUrl();
                 break;
         }

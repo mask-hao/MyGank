@@ -69,18 +69,27 @@ public interface GankContract{
     }
 
 
-    /*-----------------------------------------------*/
 
 
-    interface SearchView extends BaseView<SearchPresenter>{
-        void setUpSearchResult(List<GankSearchItem> datas,boolean isLoadMore);
+    //搜索页内容
+    interface SearchRemoteView extends BaseView{
+        void setUpSearchResult(String searchWord,List<GankSearchItem> datas,boolean isLoadMore);
+    }
+
+
+    interface SearchLocalView extends BaseView{
         void setUpSearchHistory(List<String> histories);
     }
 
-    interface SearchPresenter extends BasePresenter{
-        void getSearchResult(Context context,String word,boolean isLoadMore);
+    interface SearchLocalPresenter extends BasePresenter{
         void getSearchHistory(Context context);
+        void updateSearchHistory(Context context,String word);
         void deleteOneHistory(Context context,String value);
         void deleteAllHistory(Context context);
     }
+
+    interface SearchRemotePresenter extends BasePresenter{
+        void getSearchResult(Context context,String word,boolean isLoadMore);
+    }
+
 }

@@ -15,7 +15,7 @@ import butterknife.BindView;
  * Created by zhanghao on 2017/5/3.
  */
 
-public class FavActivity extends BaseActivity {
+public class FavActivity extends BaseToolbarActivity {
     @BindView(R.id.fav_vp)
     ViewPager favVp;
     @BindView(R.id.fav_tabL)

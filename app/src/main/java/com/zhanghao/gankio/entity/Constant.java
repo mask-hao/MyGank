@@ -62,6 +62,7 @@ public class Constant {
 
     //常量数据码
     public static final String BASE_URL = "http://115.159.23.58:8080";
+    public static final String BASE_RES_URL = "http://115.159.23.58:8080/resource/images/";
     public static final String USER_TOKEN = "token";
     public static final String USER_NAME = "username";
     public static final String USER_ACCOUNT="account";
@@ -70,10 +71,6 @@ public class Constant {
 
 
 
-    public static final String HOME="home";
-    public static final String MORE="more";
-    public static final String ME="me";
-    public static final String SEARCH="search";
 
     public static final int SECTION=100;
     public static final int CONTENT=101;

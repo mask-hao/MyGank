@@ -24,14 +24,13 @@ import com.zhanghao.gankio.entity.User;
 import com.zhanghao.gankio.listener.HomeFrgListener;
 import com.zhanghao.gankio.listener.LikeListener;
 import com.zhanghao.gankio.listener.RecyclerScrollListener;
-import com.zhanghao.gankio.model.GankDataRepository;
-import com.zhanghao.gankio.presenter.GankPresenter;
+import com.zhanghao.gankio.model.GankDataRemoteRepository;
+import com.zhanghao.gankio.presenter.GankRemotePresenter;
 import com.zhanghao.gankio.ui.adapter.HomeAdapter;
 import com.zhanghao.gankio.ui.widget.CustomLoadMore;
 import com.zhanghao.gankio.ui.widget.MyFloatingActionButton;
 import com.zhanghao.gankio.util.ActivityUtil;
 import com.zhanghao.gankio.util.ComUtil;
-import com.zhanghao.gankio.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +76,7 @@ public class HomeFragment extends BaseFragment<GankContract.DailyPresenter> impl
 
     public static HomeFragment getInstance() {
         HomeFragment homeFragment = new HomeFragment();
-        new GankPresenter(homeFragment, GankDataRepository.getInstance());
+        new GankRemotePresenter(homeFragment, GankDataRemoteRepository.getInstance());
         return homeFragment;
     }
 

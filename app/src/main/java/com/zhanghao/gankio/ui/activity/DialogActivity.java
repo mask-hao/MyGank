@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.zhanghao.gankio.R;
 import com.zhanghao.gankio.entity.Constant;
 import com.zhanghao.gankio.util.ActivityPool;
+import com.zhanghao.gankio.util.PermissionListener;
 import com.zhanghao.gankio.util.ServiceUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,18 +22,15 @@ import java.util.List;
  * Created by zhanghao on 2017/6/10.
  */
 
-public class DialogActivity extends AppCompatActivity {
-    private static final int REQUEST_PERMISSION = 102;
+public class DialogActivity extends BaseActivity {
     private String url;
     private String changeLog;
     private long size;
     private AlertDialog alertDialogForUpdate;
     private static final String TAG = "DialogActivity";
-    private  String [] FILE_PERMISSIONS={Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE};
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityPool.addActivity(this);
         initData();
         initDialog();
     }
@@ -54,22 +52,26 @@ public class DialogActivity extends AppCompatActivity {
     }
 
     private void requestFilePermission() {
-        List<String> permissionList = new ArrayList<>();
-        for (String permission : FILE_PERMISSIONS){
-            if (ContextCompat.checkSelfPermission(this,permission) != PackageManager.PERMISSION_GRANTED){
-                permissionList.add(permission);
+        BaseActivity.requestRunTimePermissions(BaseActivity.COMMON_PERMISSIONS, new PermissionListener() {
+            @Override
+            public void onGranted() {
+                ServiceUtil.startFirRemoteService(DialogActivity.this, Constant.DOWNLOAD_NEW_APK, url, size);
+                finish();
             }
-        }
-        if(!permissionList.isEmpty()){
-            ActivityCompat.requestPermissions(this,permissionList.toArray(new String[permissionList.size()]),REQUEST_PERMISSION);
-        }else{
-            ServiceUtil.startFirRemoteService(this, Constant.DOWNLOAD_NEW_APK, url, size);
-            finish();
-        }
 
+            @Override
+            public void onDenied(List<String> deniedPermissions) {
+                String s = "缺少：";
+                for (String deniedPermission : deniedPermissions) {
+                    s += deniedPermission;
+                }
+                s += "等权限,无法下载文件";
+                Toast.makeText(DialogActivity.this,s,Toast.LENGTH_LONG).show();
+                finish();
+            }
+        });
 
     }
-
 
     private void initData() {
         Intent intent = getIntent();
@@ -81,41 +83,6 @@ public class DialogActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ActivityPool.removeActivity(this);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode){
-            case REQUEST_PERMISSION:
-                if (grantResults.length>0){
-                    List<String> deniedPermissions=new ArrayList<>();
-                    for (int i=0;i<grantResults.length;i++){
-                        int grantResult=grantResults[i];
-                        String permission=permissions[i];
-                        if (grantResult==PackageManager.PERMISSION_DENIED){
-                            deniedPermissions.add(permission);
-                        }
-                    }
-                    if (deniedPermissions.isEmpty())
-                        ServiceUtil.startFirRemoteService(this, Constant.DOWNLOAD_NEW_APK, url, size);
-                    else
-                        showDeniedPermissions(permissions);
-                }
-                break;
-        }
-        finish();
-    }
-
-    private void showDeniedPermissions(String[] permissions) {
-                            String s = "缺少：";
-                            for (String deniedPermission : permissions) {
-                                s += deniedPermission;
-                            }
-                            s += "等权限,无法下载文件";
-        Toast.makeText(this,s,Toast.LENGTH_LONG).show();
-
     }
 
 

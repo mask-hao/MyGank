@@ -27,7 +27,7 @@ import com.zhanghao.gankio.contract.UserContract;
 import com.zhanghao.gankio.entity.Constant;
 import com.zhanghao.gankio.entity.User;
 import com.zhanghao.gankio.presenter.UserPresenter;
-import com.zhanghao.gankio.ui.activity.BaseActivity;
+import com.zhanghao.gankio.ui.activity.BaseToolbarActivity;
 import com.zhanghao.gankio.util.ActivityUtil;
 import com.zhanghao.gankio.util.ComUtil;
 import com.zhanghao.gankio.util.ImageUtil;
@@ -150,7 +150,7 @@ public class MeFragment extends BaseFragment<UserContract.Presenter> implements 
     }
 
     private void initPermission() {
-        BaseActivity.requestRunTimePermissions(BaseActivity.COMMON_PERMISSIONS, new PermissionListener() {
+        BaseToolbarActivity.requestRunTimePermissions(BaseToolbarActivity.COMMON_PERMISSIONS, new PermissionListener() {
             @Override
             public void onGranted() {
                 selectImage();

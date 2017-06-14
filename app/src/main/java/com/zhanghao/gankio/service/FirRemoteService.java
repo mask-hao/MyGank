@@ -21,8 +21,6 @@ import com.zhanghao.gankio.R;
 import com.zhanghao.gankio.entity.AppInfo;
 import com.zhanghao.gankio.entity.Constant;
 import com.zhanghao.gankio.entity.NewApk;
-import com.zhanghao.gankio.listener.NewApkListener;
-import com.zhanghao.gankio.listener.NewVersionListener;
 import com.zhanghao.gankio.model.FirDataRepository;
 import com.zhanghao.gankio.model.FirDataSource;
 import com.zhanghao.gankio.ui.activity.MainActivity;
@@ -51,17 +49,6 @@ public class FirRemoteService extends IntentService{
     private NotificationCompat.Builder mBuilder;
     private NotificationManager mManager;
     private int totalFileSize;
-//    private static NewApkListener mNewApkListener;
-//    private static NewVersionListener newVersionListener;
-//
-//    public static void setNewVersionListener(NewVersionListener newVersionListener) {
-//        FirRemoteService.newVersionListener = newVersionListener;
-//    }
-//
-//    public static void setNewApkListener(NewApkListener mNewApkListener) {
-//        FirRemoteService.mNewApkListener = mNewApkListener;
-//    }
-
     public FirRemoteService() {
         super("");
     }

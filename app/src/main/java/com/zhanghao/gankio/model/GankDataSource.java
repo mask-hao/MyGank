@@ -22,36 +22,40 @@ import retrofit2.Call;
 
 public interface GankDataSource {
 
-    Observable<GankItem> getTypeData(String type, String page, User user);
+    interface GankRemoteDataSource {
 
-    Observable<Gank> getDailyData(String [] date, User user);
+        Observable<GankItem> getTypeData(String type, String page, User user);
 
-    Observable<CommonResponse<String>> getDateByPage(String page);
+        Observable<Gank> getDailyData(String[] date, User user);
 
-    Observable<CommonResponse<String>> addOneFav(GankContent item,String token);
+        Observable<CommonResponse<String>> getDateByPage(String page);
 
-    Observable<CommonResponse<String>> deleteOneFav(User user,String _id);
+        Observable<CommonResponse<String>> addOneFav(GankContent item, String token);
 
-    Observable<GankFavs> getFavs(User user,String type,String page,String count);
+        Observable<CommonResponse<String>> deleteOneFav(User user, String _id);
 
-    Call<CommonResponse<String>> getStartImage();
+        Observable<GankFavs> getFavs(User user, String type, String page, String count);
 
-/*------------------------------------------------------------------------------------------*/
+        Call<CommonResponse<String>> getStartImage();
 
-    void initLocalBD(Context context);
+        Observable<CommonResponse<List<GankSearchItem>>> getSearchResult(String words);
 
-    List<MoreEntity> getMoreData(Context context);
+    }
 
-    void updateMoreData(Context context,List<MoreEntity> list);
+    interface GankLocalDataSource {
+        void initLocalBD(Context context);
 
-    List<String> getSearchHistory(Context context);
+        List<MoreEntity> getMoreData(Context context);
 
-    void updateSearchHistory(Context context,String value);
+        void updateMoreData(Context context, List<MoreEntity> list);
 
-    void deleteOneHistory(Context context,String value);
+        List<String> getSearchHistory(Context context);
 
-    void deleteAllHistory(Context context);
+        void updateSearchHistory(Context context, String value);
 
-    Observable<CommonResponse<List<GankSearchItem>>> getSearchResult(String words);
+        void deleteOneHistory(Context context, String value);
+
+        void deleteAllHistory(Context context);
+    }
 
 }

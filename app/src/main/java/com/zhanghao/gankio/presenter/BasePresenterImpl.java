@@ -28,7 +28,6 @@ public class BasePresenterImpl implements BasePresenter{
     }
 
 
-
     public void addDisposable(Disposable... disposables){
         for (int i = 0; i < disposables.length; i++) {
             if (disposables[i]==null)
@@ -36,10 +35,6 @@ public class BasePresenterImpl implements BasePresenter{
         }
         this.compositeDisposable.addAll(disposables);
     }
-
-
-
-
 
 
     @Override

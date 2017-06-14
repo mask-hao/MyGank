@@ -9,9 +9,8 @@
         android:id="@+id/photo_vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-    <LinearLayout
+    <RelativeLayout
         android:layout_marginBottom="10dp"
-        android:gravity="center"
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -19,7 +18,22 @@
             android:id="@+id/gank_photo_pos_tv"
             android:textSize="20sp"
             android:textColor="#fff"
+            android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/photo_share"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_share_black_24dp"
+            android:layout_width="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@+id/photo_share"
+            android:id="@+id/photo_save"
+            android:src="@drawable/ic_save_black_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 </FrameLayout>

@@ -23,8 +23,8 @@ import com.zhanghao.gankio.entity.GankContent;
 import com.zhanghao.gankio.entity.User;
 import com.zhanghao.gankio.listener.LikeListener;
 import com.zhanghao.gankio.listener.RecyclerScrollListener;
-import com.zhanghao.gankio.model.GankDataRepository;
-import com.zhanghao.gankio.presenter.GankPresenter;
+import com.zhanghao.gankio.model.GankDataRemoteRepository;
+import com.zhanghao.gankio.presenter.GankRemotePresenter;
 import com.zhanghao.gankio.ui.adapter.GankTypeAdapter;
 import com.zhanghao.gankio.ui.widget.CustomLoadMore;
 import com.zhanghao.gankio.util.ActivityUtil;
@@ -39,7 +39,7 @@ import butterknife.BindView;
  * Created by zhanghao on 2017/4/30.
  */
 
-public class GankTypeListActivity extends BaseActivity<GankContract.TypePresenter> implements GankContract.TypeView, LikeListener {
+public class GankTypeListActivity extends BaseToolbarActivity<GankContract.TypePresenter> implements GankContract.TypeView, LikeListener {
     private static final String TAG = "GankTypeListActivity";
     @BindView(R.id.ganktype_rl)
     RecyclerView ganktypeRl;
@@ -128,7 +128,7 @@ public class GankTypeListActivity extends BaseActivity<GankContract.TypePresente
     private void initIntentData() {
         Intent intent = getIntent();
         mType = intent.getStringExtra("type");
-        new GankPresenter(this, GankDataRepository.getInstance());
+        new GankRemotePresenter(this, GankDataRemoteRepository.getInstance());
         mPresenter.getTypeData(mType, String.valueOf(page), false, false);
     }
 

@@ -12,19 +12,13 @@ import com.zhanghao.gankio.R;
 import com.zhanghao.gankio.contract.UserContract;
 import com.zhanghao.gankio.entity.Constant;
 import com.zhanghao.gankio.entity.User;
-import com.zhanghao.gankio.listener.NewApkListener;
-import com.zhanghao.gankio.listener.NewVersionListener;
 import com.zhanghao.gankio.presenter.UserPresenter;
-import com.zhanghao.gankio.service.FirRemoteService;
 import com.zhanghao.gankio.util.ActivityPool;
 import com.zhanghao.gankio.util.ActivityUtil;
 import com.zhanghao.gankio.util.FileUtil;
-import com.zhanghao.gankio.util.PermissionListener;
 import com.zhanghao.gankio.util.ServiceUtil;
 import com.zhanghao.gankio.util.SharedPrefsUtils;
 import com.zhanghao.gankio.util.UserUtil;
-
-import java.util.List;
 
 import butterknife.BindView;
 
@@ -32,7 +26,7 @@ import butterknife.BindView;
  * Created by zhanghao on 2017/4/28.
  */
 
-public class SettingActivity extends BaseActivity implements UserContract.LogoutView{
+public class SettingActivity extends BaseToolbarActivity implements UserContract.LogoutView{
     private static final String TAG = "SettingActivity";
     @BindView(R.id.setting_sw)
     Switch settingSw;

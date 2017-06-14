@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.zhanghao.gankio.entity.CommonResponse;
-import com.zhanghao.gankio.model.GankDataRepository;
+import com.zhanghao.gankio.model.GankDataRemoteRepository;
 import com.zhanghao.gankio.model.GankDataSource;
 import com.zhanghao.gankio.util.SharedPrefsUtils;
 
@@ -32,7 +32,7 @@ public class SplashImageService extends IntentService{
     protected void onHandleIntent(@Nullable Intent intent) {
         String defaultUrl="https://images.unsplash.com/photo-1494122474412-aeaf73d11da8?w=1080&h=1920";
 
-        GankDataSource source= GankDataRepository.getInstance();
+        GankDataSource.GankRemoteDataSource source= GankDataRemoteRepository.getInstance();
         Call<CommonResponse<String>> call=source.getStartImage();
         try {
            Response<CommonResponse<String>> response = call.execute();

@@ -51,15 +51,12 @@ public class ActivityUtil {
 
     public static void gotoPhotoActivity(Context context,List<MultiItemEntity> list,int pos){
         ArrayList<String> urls=new ArrayList<>();
-//        list.stream().filter(itemEntity -> itemEntity instanceof GankContent).forEach(itemEntity -> {
-//            GankContent content = (GankContent) itemEntity;
-//            urls.add(content.getUrl());
-//        });
-
+        ArrayList<String> ids = new ArrayList<>();
         for (MultiItemEntity itemEntity : list) {
             if (itemEntity instanceof GankContent){
                 GankContent content = (GankContent) itemEntity;
                 urls.add(content.getUrl());
+                ids.add(content.get_id());
             }
         }
 
@@ -67,6 +64,7 @@ public class ActivityUtil {
 
         Intent intent = new Intent(context, PhotoActivity.class);
         intent.putStringArrayListExtra("urls",urls);
+        intent.putStringArrayListExtra("ids",ids);
         intent.putExtra("position",pos);
         context.startActivity(intent);
     }
@@ -77,17 +75,19 @@ public class ActivityUtil {
     public static void gotoPhotoActivityH(Context context,List<GankSection> list,
                                           List<MultiItemEntity> itemEntities,int pos){
         ArrayList<String> urls=new ArrayList<>();
+        ArrayList<String> ids=new ArrayList<>();
         GankSection section= (GankSection) itemEntities.get(pos);
         int realPos=list.indexOf(section);
         LogUtil.d(TAG,realPos);
-//        urls.addAll(list.stream().map(gankSection -> gankSection.getContent().getUrl()).collect(Collectors.toList()));
 
         for (GankSection gankSection : list) {
             urls.add(gankSection.getContent().getUrl());
+            ids.add(gankSection.getContent().get_id());
         }
 
         Intent intent = new Intent(context, PhotoActivity.class);
         intent.putStringArrayListExtra("urls",urls);
+        intent.putStringArrayListExtra("ids",ids);
         intent.putExtra("position",realPos);
         context.startActivity(intent);
     }

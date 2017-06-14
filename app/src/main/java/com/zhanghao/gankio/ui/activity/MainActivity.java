@@ -9,12 +9,10 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.zhanghao.gankio.R;
+import com.zhanghao.gankio.entity.enumconstant.BottomConstant;
 import com.zhanghao.gankio.entity.Constant;
 import com.zhanghao.gankio.listener.HomeFrgListener;
-import com.zhanghao.gankio.listener.NewApkListener;
-import com.zhanghao.gankio.service.FirRemoteService;
 import com.zhanghao.gankio.ui.widget.MyBottomNavigationView;
-import com.zhanghao.gankio.util.ActivityUtil;
 import com.zhanghao.gankio.util.FragmentUtil;
 import com.zhanghao.gankio.util.PermissionListener;
 import com.zhanghao.gankio.util.ServiceUtil;
@@ -22,7 +20,7 @@ import com.zhanghao.gankio.util.UserUtil;
 import java.util.List;
 
 
-public class MainActivity extends BaseActivity implements HomeFrgListener {
+public class MainActivity extends BaseToolbarActivity implements HomeFrgListener {
 
     private static final String TAG = "MainActivity";
     MyBottomNavigationView navigation;
@@ -36,13 +34,13 @@ public class MainActivity extends BaseActivity implements HomeFrgListener {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    fragmentUtil.initFragment(Constant.HOME);
+                    fragmentUtil.initFragment(BottomConstant.HOME);
                     return true;
                 case R.id.navigation_more:
-                    fragmentUtil.initFragment(Constant.MORE);
+                    fragmentUtil.initFragment(BottomConstant.MORE);
                     return true;
                 case R.id.navigation_user:
-                    fragmentUtil.initFragment(Constant.ME);
+                    fragmentUtil.initFragment(BottomConstant.ME);
                     return true;
             }
             return false;
@@ -90,7 +88,7 @@ public class MainActivity extends BaseActivity implements HomeFrgListener {
 
     private void initView() {
         fragmentUtil = new FragmentUtil(this);
-        fragmentUtil.initFragment(Constant.HOME);
+        fragmentUtil.initFragment(BottomConstant.HOME);
         navigation= (MyBottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }

@@ -1,6 +1,10 @@
 package com.zhanghao.gankio.ui.adapter;
 
 import android.content.Context;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -20,9 +24,11 @@ import java.util.List;
  * Created by zhanghao on 2017/5/4.
  */
 
-public class FavAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder> {
+public class FavAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder>{
 
     private Context context;
+
+
 
     public FavAdapter(List<MultiItemEntity> data) {
         super(data);
@@ -34,6 +40,7 @@ public class FavAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, BaseV
 
     @Override
     protected void convert(BaseViewHolder helper, MultiItemEntity item) {
+
         switch (helper.getItemViewType()) {
             case Constant.CONTENT_IMG:
                 ImageView iv = helper.getView(R.id.gankitem_iv);
@@ -63,5 +70,11 @@ public class FavAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, BaseV
                 }
                 break;
         }
+
+
     }
+
+
+
+
 }

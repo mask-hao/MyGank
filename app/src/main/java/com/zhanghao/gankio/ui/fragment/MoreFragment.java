@@ -13,8 +13,10 @@ import com.chad.library.adapter.base.listener.OnItemDragListener;
 import com.zhanghao.gankio.R;
 import com.zhanghao.gankio.contract.GankContract;
 import com.zhanghao.gankio.entity.MoreEntity;
-import com.zhanghao.gankio.model.GankDataRepository;
-import com.zhanghao.gankio.presenter.GankPresenter;
+import com.zhanghao.gankio.model.GankDataLocalRepository;
+import com.zhanghao.gankio.model.GankDataRemoteRepository;
+import com.zhanghao.gankio.presenter.GankLocalPresenter;
+import com.zhanghao.gankio.presenter.GankRemotePresenter;
 import com.zhanghao.gankio.ui.adapter.MoreAdapter;
 import com.zhanghao.gankio.util.ActivityUtil;
 import com.zhanghao.gankio.util.LogUtil;
@@ -40,7 +42,7 @@ public class MoreFragment extends BaseFragment<GankContract.MorePresenter> imple
 
     public static MoreFragment getInstance(){
         MoreFragment moreFragment=new MoreFragment();
-        new GankPresenter(moreFragment, GankDataRepository.getInstance());
+        new GankLocalPresenter(moreFragment, GankDataLocalRepository.getInstance());
         return moreFragment;
     }
 

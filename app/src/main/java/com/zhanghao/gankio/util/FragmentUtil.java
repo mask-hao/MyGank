@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import com.zhanghao.gankio.R;
-import com.zhanghao.gankio.entity.Constant;
+import com.zhanghao.gankio.entity.enumconstant.BottomConstant;
 import com.zhanghao.gankio.ui.fragment.HomeFragment;
 import com.zhanghao.gankio.ui.fragment.MeFragment;
 import com.zhanghao.gankio.ui.fragment.MoreFragment;
@@ -28,12 +28,12 @@ public class FragmentUtil {
         actionBar=activity.getSupportActionBar();
     }
 
-    public void initFragment(String name){
+    public void initFragment(BottomConstant constant){
         mTransaction=mManager.beginTransaction();
 
         hideFragments(mTransaction);
-        switch (name){
-            case Constant.HOME:
+        switch (constant){
+            case HOME:
                 actionBar.setTitle(HomeFragment.currentTitle);
                 if (homeFragment==null){
                     homeFragment=HomeFragment.getInstance();
@@ -41,16 +41,16 @@ public class FragmentUtil {
                 }else
                     mTransaction.show(homeFragment);
                 break;
-            case Constant.MORE:
-                actionBar.setTitle(R.string.title_more);
+            case MORE:
+                actionBar.setTitle(constant.name);
                 if (moreFragment==null){
                     moreFragment=MoreFragment.getInstance();
                     mTransaction.add(R.id.fragment_content,moreFragment);
                 }else
                     mTransaction.show(moreFragment);
                 break;
-            case Constant.ME:
-                actionBar.setTitle(R.string.title_me);
+            case ME:
+                actionBar.setTitle(constant.name);
                 if (meFragment==null){
                     meFragment=MeFragment.getInstance();
                     mTransaction.add(R.id.fragment_content,meFragment);

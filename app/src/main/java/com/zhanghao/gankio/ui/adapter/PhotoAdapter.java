@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.zhanghao.gankio.R;
+import com.zhanghao.gankio.util.LogUtil;
 
 import java.util.ArrayList;
 
@@ -40,15 +41,24 @@ public class PhotoAdapter extends PagerAdapter{
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
+
+        LogUtil.d("ViewPager","初始化");
+
         View view= LayoutInflater.from(context).inflate(R.layout.photo_item_layout,container,false);
+
         PhotoView photoView= (PhotoView) view.findViewById(R.id.photo_pv);
+
         Glide.with(context).load(mDatas.get(position)).into(photoView);
         container.addView(view);
+
+
+
         return view;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
+        LogUtil.d("ViewPager","销毁");
         View view = (View) object;
         container.removeView(view);
     }

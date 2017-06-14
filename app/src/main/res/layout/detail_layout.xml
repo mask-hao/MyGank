@@ -17,6 +17,7 @@
         android:max="100"
         android:progressDrawable="@drawable/web_view_progress" />
     <com.zhanghao.gankio.ui.widget.MyScrollWebView
+        android:fitsSystemWindows="true"
         android:id="@+id/gank_content_wb"
         android:background="@color/colorViewGroupBackground"
         android:layout_width="match_parent"
