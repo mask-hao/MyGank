@@ -12,6 +12,9 @@
         <item name="colorControlActivated">@color/colorPrimary</item>
         <item name="colorControlHighlight">@color/md_blue_200</item>
         <item name="android:statusBarColor">@color/transparent</item>
+
+        <item name="android:listDivider">@drawable/grid_divider</item>
+
     </style>
 
 

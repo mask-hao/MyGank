@@ -59,6 +59,8 @@
         <service android:name=".service.FirRemoteService"
             android:exported="false"/>
 
+        <service android:name=".service.LocalDataSyncService"
+            android:exported="false"/>
 
         <meta-data android:value="" android:name="BUG_HD_SDK_GENERAL_KEY" />
 

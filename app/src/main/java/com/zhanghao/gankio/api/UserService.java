@@ -15,20 +15,20 @@ import retrofit2.http.Part;
  */
 
 public interface UserService{
-    @POST("/GankWeb/api/user/login")
+    @POST("user/login")
     Observable<CommonResponse<User>> login(@Body User user);
 
-    @POST("/GankWeb/api/user/register")
+    @POST("user/register")
     Observable<CommonResponse<String>> register(@Body User user);
 
-    @POST("/GankWeb/api/user/logout")
+    @POST("user/logout")
     Observable<CommonResponse<String>> logout(@Body User user);
 
     @Multipart
-    @POST("/GankWeb/api/upload/userImage")
+    @POST("upload/userImage")
     Observable<CommonResponse<String>> uploadImg(@Part MultipartBody.Part file, @Part MultipartBody.Part token);
 
-    @POST("/GankWeb/api/verification/sendEmail")
+    @POST("verification/sendEmail")
     Observable<CommonResponse<String>> getVerifyCode(@Body User user);
 
 

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="5dp"
+    app:cardBackgroundColor="@color/colorCardViewBackground"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_margin="5dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/tag_img_iv"
+            android:layout_width="@dimen/tag_iv_size"
+            android:layout_height="@dimen/tag_iv_size"
+            android:layout_gravity="center"
+             />
+        <TextView
+            android:textColor="@color/colorTextViewGrey"
+            android:id="@+id/tag_text_tv"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/me_textSize" />
+            <android.support.v7.widget.CardView
+                android:id="@+id/tag_select_card"
+                android:layout_gravity="center"
+                app:cardCornerRadius="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="@dimen/me_textSize"
+                    android:id="@+id/tag_select_tv"
+                    android:gravity="center"
+                    android:textColor="@color/md_white"
+                    android:layout_width="@dimen/tag_iv_size"
+                    android:layout_height="wrap_content" />
+            </android.support.v7.widget.CardView>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

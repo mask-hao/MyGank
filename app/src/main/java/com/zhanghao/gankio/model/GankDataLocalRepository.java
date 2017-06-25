@@ -15,6 +15,7 @@ import com.zhanghao.gankio.entity.GankFavs;
 import com.zhanghao.gankio.entity.GankItem;
 import com.zhanghao.gankio.entity.GankSearchItem;
 import com.zhanghao.gankio.entity.MoreEntity;
+import com.zhanghao.gankio.entity.Tag;
 import com.zhanghao.gankio.entity.User;
 import com.zhanghao.gankio.entity.enumconstant.TypeConstant;
 
@@ -46,7 +47,7 @@ public class GankDataLocalRepository implements GankDataSource.GankLocalDataSour
 
 
     private void initDB(Context context){
-        MyDatabaseHelper helper=new MyDatabaseHelper(context,"gank.db",null,2);
+        MyDatabaseHelper helper=new MyDatabaseHelper(context,"gank.db",null,3);
         DB=helper.getWritableDatabase();
     }
 
@@ -155,4 +156,34 @@ public class GankDataLocalRepository implements GankDataSource.GankLocalDataSour
         }
     }
 
+
+    @Override
+    public void saveLocalTags(Context context, List<Tag> tags) {
+        String SQL_PRE="INSERT OR IGNORE INTO tag VALUES ( ";
+        initDB(context);
+        for (Tag tag : tags) {
+            String SQL = SQL_PRE+tag.getId()+" , "+"'"+tag.getType()+"' );";
+            DB.execSQL(SQL);
+        }
+    }
+
+    @Override
+    public List<Tag> getLocalTags(Context context) {
+        String SQL = "SELECT * FROM tag ;";
+        initDB(context);
+        List<Tag> tagsFromDb = new ArrayList<>();
+        Cursor cursor = DB.rawQuery(SQL,null);
+        if (cursor.moveToFirst()){
+            do {
+                Tag tag = new Tag();
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                String type = cursor.getString(cursor.getColumnIndex("type"));
+                tag.setId(id);
+                tag.setType(type);
+                tagsFromDb.add(tag);
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        return tagsFromDb;
+    }
 }

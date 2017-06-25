@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/click_load_more_tv"
+        android:drawableStart="@drawable/ic_refresh_black_24dp"
+        android:textColor="@color/colorTextViewGrey"
+        android:text="@string/click_load_more"
+        android:layout_width="wrap_content"
+        android:textSize="@dimen/me_textSize"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_height="wrap_content" />
+    <include layout="@layout/recycler_header"/>
+</LinearLayout>

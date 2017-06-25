@@ -216,6 +216,11 @@ public class GankTypeListActivity extends BaseToolbarActivity<GankContract.TypeP
 
     private void onItemClick(int position) {
         GankContent content = (GankContent) mDatas.get(position);
+
+        //加入历史记录
+
+        addOneItemToHistory(content);
+
         if (mDatas.get(position).getItemType() == Constant.IMG) {
             ActivityUtil.gotoPhotoActivity(this, mDatas, position);
         } else {
@@ -223,6 +228,15 @@ public class GankTypeListActivity extends BaseToolbarActivity<GankContract.TypeP
         }
 
     }
+
+
+    private void addOneItemToHistory(GankContent item){
+        String token = User.getInstance().getUserToken();
+        if (token!=null && !token.isEmpty()){
+            mPresenter.addOneHis(item,token);
+        }
+    }
+
 
 
     @Override

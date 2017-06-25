@@ -5,7 +5,7 @@ package com.zhanghao.gankio.entity.enumconstant;
  */
 
 public enum BottomConstant{
-    HOME("主页"),DAY("每日"),MORE("更多"),ME("我");
+    RECOMMEND("推荐"),DAY("每日"),MORE("更多"),ME("我");
     public String name;
     BottomConstant(String name){
         this.name =name;

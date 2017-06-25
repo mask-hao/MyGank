@@ -59,9 +59,22 @@ public class ActivityUtil {
                 ids.add(content.get_id());
             }
         }
+        Intent intent = new Intent(context, PhotoActivity.class);
+        intent.putStringArrayListExtra("urls",urls);
+        intent.putStringArrayListExtra("ids",ids);
+        intent.putExtra("position",pos);
+        context.startActivity(intent);
+    }
 
 
 
+    public static void gotoPhotoActivityFromRecommend(Context context,List<GankContent> list,int pos){
+        ArrayList<String> urls=new ArrayList<>();
+        ArrayList<String> ids = new ArrayList<>();
+        for (GankContent content : list) {
+                urls.add(content.getUrl());
+                ids.add(content.get_id());
+        }
         Intent intent = new Intent(context, PhotoActivity.class);
         intent.putStringArrayListExtra("urls",urls);
         intent.putStringArrayListExtra("ids",ids);

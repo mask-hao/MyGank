@@ -51,6 +51,18 @@ public class Constant {
     public static final String GET_SEARCH_DATA_ERROR="获取搜索数据错误";
 
 
+
+
+    public static final String GET_TAGS_SUCCESS="获取标签成功";
+    public static final String GET_TAGS_FAILED="获取标签失败";
+
+    public static final String UPDATE_TAGS_SUCCESS="上传标签成功";
+    public static final String UPDATE_TAGS_FAILED="上传标签失败";
+
+
+    public static final String SAVE_IN_LOCALDB = "保存在本地数据库";
+
+
     public static final String ANDROID="Android";
     public static final String IOS="iOS";
     public static final String WEB="前端";
@@ -61,7 +73,8 @@ public class Constant {
     public static final String APP="App";
 
     //常量数据码
-    public static final String BASE_URL = "http://115.159.23.58:8080";
+    public static final String BASE_IMG_URL = "http://115.159.23.58:8080/";
+    public static final String BASE_URL = "http://115.159.23.58:8080/GankWeb/api/";
     public static final String BASE_RES_URL = "http://115.159.23.58:8080/resource/images/";
     public static final String USER_TOKEN = "token";
     public static final String USER_NAME = "username";
@@ -76,6 +89,7 @@ public class Constant {
     public static final int CONTENT=101;
     public static final int CONTENT_IMG=102;
     public static final int IMG=103;
+    public static final int IMG_9=104;
 
 
     public static final String WIFI_ONLY="wifi_only";

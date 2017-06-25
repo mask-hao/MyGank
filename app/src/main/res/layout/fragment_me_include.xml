@@ -18,6 +18,61 @@
             android:orientation="vertical">
 
 
+
+            <LinearLayout
+                android:id="@+id/me_homePage_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:selectableItemBackground"
+                android:clickable="true"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/image_paddingSize"
+                    android:src="@drawable/ic_home_blue_24dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/homePage_setting_tv"
+                            android:textColor="@color/colorTextViewBlack"
+                            android:textSize="@dimen/me_textSize"
+                            android:layout_alignBaseline="@+id/me_homePage_sw"
+                            android:layout_alignBottom="@+id/me_homePage_sw"
+                            android:layout_alignParentStart="true" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/view_size"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/colorViewGroupBackground" />
+
+                        <Switch
+                            android:clickable="false"
+                            android:id="@+id/me_homePage_sw"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/image_paddingSize"
+                            />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/me_fav_ll"
                 android:layout_width="match_parent"
@@ -27,7 +82,6 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/imageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/image_paddingSize"

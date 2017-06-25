@@ -3,9 +3,12 @@ package com.zhanghao.gankio.contract;
 import android.content.Context;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.zhanghao.gankio.entity.CommonResponse;
+import com.zhanghao.gankio.entity.GankCustom;
 import com.zhanghao.gankio.entity.GankFavContent;
 import com.zhanghao.gankio.entity.GankSearchItem;
 import com.zhanghao.gankio.entity.MoreEntity;
+import com.zhanghao.gankio.entity.Tag;
 import com.zhanghao.gankio.entity.User;
 import com.zhanghao.gankio.presenter.BaseGankPresenter;
 import com.zhanghao.gankio.presenter.BasePresenter;
@@ -91,5 +94,46 @@ public interface GankContract{
     interface SearchRemotePresenter extends BasePresenter{
         void getSearchResult(Context context,String word,boolean isLoadMore);
     }
+
+
+
+
+    //推荐页内容
+    interface RecommendView extends BaseView<RecommendPresenter>{
+        void setRecommendData(List<MultiItemEntity> customList,boolean refresh);
+        void setRecommendTagsData(List<Tag> tags);
+    }
+
+
+    interface RecommendDataSyncView extends BaseView<RecommendPresenter>{
+        void dataSyncSuccess(boolean sync);
+    }
+
+
+
+    interface RecommendRemotePresenter extends BaseGankPresenter{
+        void getCustomData(User user,boolean firstLoad);
+        void getCustomRandomData(List<Tag> tags ,boolean firstLoad);
+        void getRemoteTags();
+        void updateUserTags(List<Tag> tags,String token);
+    }
+
+
+    interface RecommendLocalPresenter extends BasePresenter{
+        List<Tag> getLocalTags(Context context);
+        void saveLocalTags(Context context,List<Tag> tags);
+    }
+
+
+    interface RecommendPresenter extends BaseGankPresenter{
+        void getCommonRecommend(User user,Context context,boolean refresh);
+        List<Tag> getLocalTags(Context context);
+        void saveLocalTags(Context context,List<Tag> tags);
+    }
+
+
+
+
+
 
 }

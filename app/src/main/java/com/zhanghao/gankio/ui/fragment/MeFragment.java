@@ -33,6 +33,7 @@ import com.zhanghao.gankio.util.ComUtil;
 import com.zhanghao.gankio.util.ImageUtil;
 import com.zhanghao.gankio.util.LogUtil;
 import com.zhanghao.gankio.util.PermissionListener;
+import com.zhanghao.gankio.util.ServiceUtil;
 import com.zhanghao.gankio.util.SharedPrefsUtils;
 import com.zhanghao.gankio.util.UserUtil;
 
@@ -76,6 +77,10 @@ public class MeFragment extends BaseFragment<UserContract.Presenter> implements 
     LinearLayout meSettingLl;
     @BindView(R.id.me_nightTh_sw)
     Switch meNightThSw;
+    @BindView(R.id.me_homePage_sw)
+    Switch meHomePageSw;
+    @BindView(R.id.me_homePage_ll)
+    LinearLayout meHomePageLl;
     private AlertDialog alertDialog;
     boolean loginState = true;
     LinearLayout loginLLView;
@@ -108,7 +113,10 @@ public class MeFragment extends BaseFragment<UserContract.Presenter> implements 
     }
 
     private void initView() {
-        meNightThSw.setChecked(SharedPrefsUtils.getBooleanPreference(getContext(),"night",false));
+        meNightThSw.setChecked(SharedPrefsUtils.getBooleanPreference(getContext(), getString(R.string.theme_tv), false));
+
+        meHomePageSw.setChecked(SharedPrefsUtils.getBooleanPreference(getContext(),getString(R.string.homePage_setting_tv),false));
+
         meIv.setOnClickListener(v -> uploadUserImg());
         meSettingLl.setOnClickListener(v -> ActivityUtil.gotoSettingActivity(getContext()));
         meFavLl.setOnClickListener(v -> {
@@ -118,7 +126,7 @@ public class MeFragment extends BaseFragment<UserContract.Presenter> implements 
 
         meNightThLl.setOnClickListener(v -> {
             showThemeChangeAnimation();
-            if (!SharedPrefsUtils.getBooleanPreference(getContext(),"night",false)){
+            if (!SharedPrefsUtils.getBooleanPreference(getContext(), getString(R.string.theme_tv), false)) {
                 SkinCompatManager.getInstance().loadSkin("night.skin", new SkinCompatManager.SkinLoaderListener() {
                     @Override
                     public void onStart() {
@@ -132,18 +140,47 @@ public class MeFragment extends BaseFragment<UserContract.Presenter> implements 
 
                     @Override
                     public void onFailed(String errMsg) {
-                        LogUtil.d(TAG,errMsg);
+                        LogUtil.d(TAG, errMsg);
                     }
                 });
-                SharedPrefsUtils.setBooleanPreference(getContext(),"night",true);
+                SharedPrefsUtils.setBooleanPreference(getContext(), getString(R.string.theme_tv), true);
                 meNightThSw.setChecked(true);
-            }else{
+            } else {
                 SkinCompatManager.getInstance().restoreDefaultTheme();
-                SharedPrefsUtils.setBooleanPreference(getContext(),"night",false);
+                SharedPrefsUtils.setBooleanPreference(getContext(), getString(R.string.theme_tv), false);
                 meNightThSw.setChecked(false);
             }
         });
+
+
+        meHomePageLl.setOnClickListener(v->{
+            if (!SharedPrefsUtils.getBooleanPreference(getContext(),getString(R.string.homePage_setting_tv),false)){
+                meHomePageSw.setChecked(true);
+                reLaunchApp();
+                SharedPrefsUtils.setBooleanPreference(getContext(),getString(R.string.homePage_setting_tv),true);
+            }else{
+                meHomePageSw.setChecked(false);
+                SharedPrefsUtils.setBooleanPreference(getContext(),getString(R.string.homePage_setting_tv),false);
+                reLaunchApp();
+            }
+        });
+
+
+
+
+
     }
+
+
+
+    private void reLaunchApp(){
+        Intent i =getActivity().getPackageManager()
+                .getLaunchIntentForPackage(getActivity().getPackageName());
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+        getActivity().finish();
+    }
+
 
     private void uploadUserImg() {
         initPermission();
@@ -179,7 +216,7 @@ public class MeFragment extends BaseFragment<UserContract.Presenter> implements 
             meTv.setText(user.getUserName());
             if (!user.getUserImage().isEmpty()) {
                 Glide.with(this)
-                        .load(Constant.BASE_URL + "/" + user.getUserImage())
+                        .load(Constant.BASE_IMG_URL + "/" + user.getUserImage())
                         .into(meIv);
             }
             //自动登录
@@ -393,7 +430,16 @@ public class MeFragment extends BaseFragment<UserContract.Presenter> implements 
         if (!loginState)
             loginState = true;
         if (!user.getUserImage().equals(""))
-            Glide.with(getContext()).load(Constant.BASE_URL + "/" + user.getUserImage()).into(meIv);
+            Glide.with(getContext()).load(Constant.BASE_IMG_URL + "/" + user.getUserImage()).into(meIv);
+
+        SyncLocalData();
+
+    }
+
+    private void SyncLocalData() {
+        if (!SharedPrefsUtils.getBooleanPreference(getContext(),getString(R.string.syncData),false)){
+            ServiceUtil.startSyncDataService(getContext());
+        }
     }
 
     private void setupUser(User user1) {
@@ -409,7 +455,7 @@ public class MeFragment extends BaseFragment<UserContract.Presenter> implements 
     @Override
     public void uploadImgResult(String path) {
         Glide.with(getContext())
-                .load(Constant.BASE_URL + "/" + path)
+                .load(Constant.BASE_IMG_URL + "/" + path)
                 .into(meIv);
         User.getInstance().setUserImage(path);
         UserUtil.serializeUser(User.getInstance());
@@ -451,26 +497,25 @@ public class MeFragment extends BaseFragment<UserContract.Presenter> implements 
     }
 
 
-
     /**
      * 切换的动画
      */
     private void showThemeChangeAnimation() {
-        final View decorView=getActivity().getWindow().getDecorView();
-        Bitmap cacheBitmap=getCacheBitmapFromView(decorView);
-        if (decorView instanceof ViewGroup && cacheBitmap!=null){
-            final View view=new View(getContext());
-            view.setBackgroundDrawable(new BitmapDrawable(getResources(),cacheBitmap));
-            ViewGroup.LayoutParams layoutParams=new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+        final View decorView = getActivity().getWindow().getDecorView();
+        Bitmap cacheBitmap = getCacheBitmapFromView(decorView);
+        if (decorView instanceof ViewGroup && cacheBitmap != null) {
+            final View view = new View(getContext());
+            view.setBackgroundDrawable(new BitmapDrawable(getResources(), cacheBitmap));
+            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT);
-            ((ViewGroup)decorView).addView(view,layoutParams);
-            ObjectAnimator objectAnimator=ObjectAnimator.ofFloat(view,"alpha", 1f, 0f);
+            ((ViewGroup) decorView).addView(view, layoutParams);
+            ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view, "alpha", 1f, 0f);
             objectAnimator.setDuration(500);
             objectAnimator.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
-                    ((ViewGroup)decorView).removeView(view);
+                    ((ViewGroup) decorView).removeView(view);
                 }
             });
             objectAnimator.start();
@@ -479,20 +524,21 @@ public class MeFragment extends BaseFragment<UserContract.Presenter> implements 
 
     /**
      * 获取一个View的缓存视图
+     *
      * @param view
      * @return
      */
-    private Bitmap getCacheBitmapFromView(View view){
-        final boolean drawingCacheEnable=true;
+    private Bitmap getCacheBitmapFromView(View view) {
+        final boolean drawingCacheEnable = true;
         view.setDrawingCacheEnabled(drawingCacheEnable);
         view.buildDrawingCache(drawingCacheEnable);
-        final Bitmap drawingCache=view.getDrawingCache();
+        final Bitmap drawingCache = view.getDrawingCache();
         Bitmap bitmap;
-        if (drawingCache!=null){
-            bitmap=Bitmap.createBitmap(drawingCache);
+        if (drawingCache != null) {
+            bitmap = Bitmap.createBitmap(drawingCache);
             view.setDrawingCacheEnabled(false);
-        }else {
-            bitmap=null;
+        } else {
+            bitmap = null;
         }
         return bitmap;
     }

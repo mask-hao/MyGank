@@ -2,9 +2,11 @@ package com.zhanghao.gankio.api;
 import com.zhanghao.gankio.entity.CommonResponse;
 import com.zhanghao.gankio.entity.Gank;
 import com.zhanghao.gankio.entity.GankContent;
+import com.zhanghao.gankio.entity.GankCustom;
 import com.zhanghao.gankio.entity.GankFavs;
 import com.zhanghao.gankio.entity.GankItem;
 import com.zhanghao.gankio.entity.GankSearchItem;
+import com.zhanghao.gankio.entity.Tag;
 import com.zhanghao.gankio.entity.User;
 import java.util.List;
 import io.reactivex.Observable;
@@ -20,7 +22,7 @@ import retrofit2.http.Path;
 
 public interface GankService {
 
-    @POST("/GankWeb/api/data/{type}/{page}")
+    @POST("data/{type}/{page}")
     Observable<GankItem> getTypeData
             (
                 @Path("type") String type,
@@ -28,7 +30,7 @@ public interface GankService {
                 @Body User user
             );
 
-    @POST("/GankWeb/api/day/{year}/{month}/{day}")
+    @POST("day/{year}/{month}/{day}")
     Observable<Gank> getDailyData
             (
                 @Path("year") String year,
@@ -38,13 +40,13 @@ public interface GankService {
             );
 
 
-    @GET("/GankWeb/api/getDate/{page}")
+    @GET("getDate/{page}")
     Observable<CommonResponse<String>> getDateByPage
             (
                  @Path("page") String page
             );
 
-    @POST("/GankWeb/api/addFav/{token}")
+    @POST("addFav/{token}")
     Observable<CommonResponse<String>> addOneFav(
             @Body GankContent item,
             @Path("token")String token
@@ -52,14 +54,14 @@ public interface GankService {
 
 
 
-    @POST("/GankWeb/api/deleteFav/{id}")
+    @POST("deleteFav/{id}")
     Observable<CommonResponse<String>> deleteFav(
             @Body User user,
             @Path("id")String id
     );
 
 
-    @POST("GankWeb/api/getFav/{type}/{page}/{count}")
+    @POST("getFav/{type}/{page}/{count}")
     Observable<GankFavs> getFavs(
             @Body User user,
             @Path("type")String type,
@@ -68,14 +70,44 @@ public interface GankService {
     );
 
 
-    @GET("GankWeb/api/search/{word}")
+    @GET("search/{word}")
     Observable<CommonResponse<List<GankSearchItem>>>
     getSearch(
             @Path("word")String word
     );
 
 
-    @GET("GankWeb/api/start-img")
+    @GET("start-img")
     Call<CommonResponse<String>> getStartImage();
+
+
+
+    @POST("addHis/{token}")
+    Observable<Void> addHis(
+            @Body GankContent item,
+            @Path("token")String token
+    );
+
+
+    @POST("getCustomData")
+    Observable<GankCustom> getCustomData(
+            @Body User user);
+
+    @POST("getCustomRandomData")
+    Observable<GankCustom> getCustomRandomData(
+            @Body List<Tag> tags);
+
+
+    @POST("addTags/{token}")
+    Observable<CommonResponse<String>> addUserTags(
+            @Body List<Tag> tags,
+            @Path("token")String token);
+
+    @GET("getAllTags")
+    Observable<CommonResponse<List<Tag>>> getAllTags();
+
+
+
+
 
 }

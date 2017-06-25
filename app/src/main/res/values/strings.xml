@@ -39,4 +39,14 @@
     <string name="goSetting">去设置</string>
     <string name="load_failed_me">加载失败，请点我重试</string>
     <string name="delete">删除</string>
+    <string name="homePage_setting_tv">首页加载每日数据</string>
+    <string name="title_recommend">推荐</string>
+    <string name="title_everyday">每日</string>
+    <string name="add_tag_tips">请选择您感兴趣的标签，至少3个！</string>
+    <string name="tags_add">开始加载</string>
+    <string name="atLeastTagTips">至少选择3个标签</string>
+    <string name="syncData">本地数据同步</string>
+    <string name="from_photo">来源：福利</string>
+    <string name="who_photo">作者：Gank</string>
+    <string name="click_load_more">点击为您推荐更多</string>
 </resources>

@@ -17,7 +17,7 @@ public enum  TypeConstant {
     APP("App",Constant.BASE_RES_URL+"app.jpg");
     public String name;
     public String url;
-    private TypeConstant(String name, String url) {
+    TypeConstant(String name, String url) {
         this.name = name;
         this.url = url;
     }

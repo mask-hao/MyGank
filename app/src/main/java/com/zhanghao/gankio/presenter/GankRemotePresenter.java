@@ -1,6 +1,7 @@
 package com.zhanghao.gankio.presenter;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.zhanghao.gankio.contract.GankContract;
@@ -8,17 +9,23 @@ import com.zhanghao.gankio.entity.CommonResponse;
 import com.zhanghao.gankio.entity.Constant;
 import com.zhanghao.gankio.entity.Gank;
 import com.zhanghao.gankio.entity.GankContent;
+import com.zhanghao.gankio.entity.GankCustom;
 import com.zhanghao.gankio.entity.GankFavs;
 import com.zhanghao.gankio.entity.GankSearchItem;
 import com.zhanghao.gankio.entity.GankSection;
 import com.zhanghao.gankio.entity.GankItem;
+import com.zhanghao.gankio.entity.RecommendPhoto;
+import com.zhanghao.gankio.entity.Tag;
 import com.zhanghao.gankio.entity.User;
 import com.zhanghao.gankio.model.GankDataSource;
 import com.zhanghao.gankio.rx.RxHelper;
 import com.zhanghao.gankio.rx.RxObserver;
 import com.zhanghao.gankio.util.ComUtil;
 import com.zhanghao.gankio.util.LogUtil;
+import com.zhanghao.gankio.util.RandomUtil;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -29,12 +36,16 @@ public class GankRemotePresenter extends BasePresenterImpl implements
         GankContract.DailyPresenter,
         GankContract.TypePresenter,
         GankContract.FavPresenter,
+        GankContract.RecommendRemotePresenter,
         GankContract.SearchRemotePresenter{
+
 
     private GankContract.DailyView mDaliyView;
     private GankContract.TypeView mTypeView;
     private GankContract.FavView mFavView;
     private GankContract.SearchRemoteView mSearchView;
+    private GankContract.RecommendView mRecommendView;
+    private GankContract.RecommendDataSyncView mSyncView;
     private GankDataSource.GankRemoteDataSource dataSource;
     private static final String TAG = "GankPresenter";
 
@@ -58,10 +69,26 @@ public class GankRemotePresenter extends BasePresenterImpl implements
     }
 
 
+    public GankRemotePresenter(GankContract.RecommendView recommendView,
+                               GankDataSource.GankRemoteDataSource dataSource,
+                               GankRecommendPresenter presenter){
+        this.mRecommendView  = recommendView;
+        this.dataSource = dataSource;
+        this.mRecommendView.setPresenter(presenter);
+    }
+
     GankRemotePresenter(GankContract.SearchRemoteView searchView, GankDataSource.GankRemoteDataSource dataSource){
         this.mSearchView=searchView;
         this.dataSource=dataSource;
     }
+
+
+
+    public GankRemotePresenter(GankContract.RecommendDataSyncView syncView,GankDataSource.GankRemoteDataSource dataSource){
+        this.mSyncView = syncView;
+        this.dataSource = dataSource;
+    }
+
 
 
     @Override
@@ -187,6 +214,10 @@ public class GankRemotePresenter extends BasePresenterImpl implements
         mTypeView.setUpTypeData(gankDatas,isRefresh,isLoadMore);
     }
 
+
+
+
+
     @Override
     public void addOneFav(GankContent item,String token,int pos) {
         dataSource.addOneFav(item,token)
@@ -303,5 +334,124 @@ public class GankRemotePresenter extends BasePresenterImpl implements
                 });
     }
 
+
+    @Override
+    public void addOneHis(GankContent content, String token) {
+        if (token==null ||token.isEmpty()) return;
+        else{
+            dataSource.addOneHis(content,token).compose(RxHelper.toUI())
+                    .subscribe(new RxObserver<Void>(this) {
+                        @Override
+                        protected void onSuccess(Void aVoid) {
+
+                        }
+
+                        @Override
+                        protected void onFail(String message) {
+                            Log.d(TAG,message);
+                        }
+                    });
+        }
+    }
+
+    @Override
+    public void getCustomData(User user,boolean refresh) {
+        mRecommendView.showDialog();
+        dataSource.getCustomData(user).compose(RxHelper.toUI())
+                .subscribe(new RxObserver<GankCustom>(this) {
+                    @Override
+                    protected void onSuccess(GankCustom gankCustom) {
+                        setUpRecommendData(gankCustom,refresh);
+                    }
+
+                    @Override
+                    protected void onFail(String message) {
+                        mRecommendView.hideDialog();
+                        mRecommendView.showError(message);
+                    }
+                });
+    }
+
+    @Override
+    public void getCustomRandomData(List<Tag> tags,boolean refresh) {
+        mRecommendView.showDialog();
+        dataSource.getCustomRandomData(tags).compose(RxHelper.toUI())
+                .subscribe(new RxObserver<GankCustom>(this) {
+                    @Override
+                    protected void onSuccess(GankCustom gankCustom) {
+                        setUpRecommendData(gankCustom,refresh);
+                    }
+
+                    @Override
+                    protected void onFail(String message) {
+                        mRecommendView.hideDialog();
+                        mRecommendView.showError(message);
+                    }
+                });
+    }
+
+
+
+    //进行推荐数据的处理
+    private void setUpRecommendData(GankCustom gankCustom,boolean refresh){
+        if (!gankCustom.isError()){
+            List<MultiItemEntity> datas = new ArrayList<>();
+            RecommendPhoto recommendPhoto = new RecommendPhoto();
+            recommendPhoto.setNine_photos(gankCustom.getPhotos());
+            datas.addAll(gankCustom.getItemList());
+            datas.add(recommendPhoto);
+            Collections.shuffle(datas);
+            if (refresh) {
+                datas.add(new GankSection(Constant.SECTION, "上次为阅读到这里,点击刷新"));
+            }
+
+            LogUtil.d(TAG,recommendPhoto.toString());
+            mRecommendView.setRecommendData(datas, refresh);
+        } else {
+            mRecommendView.showError(Constant.GET_DATA_FAILED);
+        }
+        mRecommendView.hideDialog();
+    }
+
+
+    @Override
+    public void getRemoteTags() {
+        dataSource.getRemoteTags().compose(RxHelper.toUI())
+                .subscribe(new RxObserver<CommonResponse<List<Tag>>>(this) {
+                    @Override
+                    protected void onSuccess(CommonResponse<List<Tag>> listCommonResponse) {
+                        if (listCommonResponse.getResult().equals(Constant.GET_TAGS_SUCCESS)){
+                            mRecommendView.setRecommendTagsData(listCommonResponse.getContent());
+                        }else
+                            onFail(listCommonResponse.getResult());
+                    }
+
+                    @Override
+                    protected void onFail(String message) {
+                        mRecommendView.showError(message);
+                    }
+                });
+
+    }
+
+
+    @Override
+    public void updateUserTags(List<Tag> tags,String userToken){
+        dataSource.addUserTags(tags,userToken).compose(RxHelper.toUI())
+                .subscribe(new RxObserver<CommonResponse<String>>(this) {
+                    @Override
+                    protected void onSuccess(CommonResponse<String> stringCommonResponse) {
+                        if (stringCommonResponse.getResult().equals(Constant.UPDATE_TAGS_SUCCESS)){
+                            mSyncView.dataSyncSuccess(true);
+                        }else
+                            mSyncView.showError(stringCommonResponse.getResult());
+                    }
+
+                    @Override
+                    protected void onFail(String message) {
+                        mSyncView.showError(message);
+                    }
+                });
+    }
 }
 

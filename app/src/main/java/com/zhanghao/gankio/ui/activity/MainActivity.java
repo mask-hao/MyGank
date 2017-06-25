@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -14,8 +16,10 @@ import com.zhanghao.gankio.entity.Constant;
 import com.zhanghao.gankio.listener.HomeFrgListener;
 import com.zhanghao.gankio.ui.widget.MyBottomNavigationView;
 import com.zhanghao.gankio.util.FragmentUtil;
+import com.zhanghao.gankio.util.LogUtil;
 import com.zhanghao.gankio.util.PermissionListener;
 import com.zhanghao.gankio.util.ServiceUtil;
+import com.zhanghao.gankio.util.SharedPrefsUtils;
 import com.zhanghao.gankio.util.UserUtil;
 import java.util.List;
 
@@ -25,7 +29,6 @@ public class MainActivity extends BaseToolbarActivity implements HomeFrgListener
     private static final String TAG = "MainActivity";
     MyBottomNavigationView navigation;
     private FragmentUtil fragmentUtil;
-    private AlertDialog alertDialog;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -33,8 +36,11 @@ public class MainActivity extends BaseToolbarActivity implements HomeFrgListener
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    fragmentUtil.initFragment(BottomConstant.HOME);
+                case R.id.navigation_recommend:
+                    fragmentUtil.initFragment(BottomConstant.RECOMMEND);
+                    return true;
+                case R.id.navigation_everyday:
+                    fragmentUtil.initFragment(BottomConstant.DAY);
                     return true;
                 case R.id.navigation_more:
                     fragmentUtil.initFragment(BottomConstant.MORE);
@@ -43,7 +49,7 @@ public class MainActivity extends BaseToolbarActivity implements HomeFrgListener
                     fragmentUtil.initFragment(BottomConstant.ME);
                     return true;
             }
-            return false;
+            return true;
         }
 
     };
@@ -83,15 +89,31 @@ public class MainActivity extends BaseToolbarActivity implements HomeFrgListener
 
     private void initOtherService() {
         ServiceUtil.startFirRemoteService(this,Constant.GET_APP_INFO);
+        if (!SharedPrefsUtils.getBooleanPreference(this,getString(R.string.syncData),false)){
+            ServiceUtil.startSyncDataService(this);
+        }
     }
 
 
     private void initView() {
-        fragmentUtil = new FragmentUtil(this);
-        fragmentUtil.initFragment(BottomConstant.HOME);
         navigation= (MyBottomNavigationView) findViewById(R.id.navigation);
+        initNavigationMenu();
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+
     }
+
+    private void initNavigationMenu() {
+        fragmentUtil = new FragmentUtil(this);
+        if (!SharedPrefsUtils.getBooleanPreference(this, getString(R.string.homePage_setting_tv), false)) {
+            navigation.inflateMenu(R.menu.navigation_false);
+            fragmentUtil.initFragment(BottomConstant.RECOMMEND);
+        } else {
+            navigation.inflateMenu(R.menu.navigation_true);
+            fragmentUtil.initFragment(BottomConstant.DAY);
+        }
+    }
+
 
     @Override
     public void hideToolbar() {
@@ -131,4 +153,8 @@ public class MainActivity extends BaseToolbarActivity implements HomeFrgListener
     }
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

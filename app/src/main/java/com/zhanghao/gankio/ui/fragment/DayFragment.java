@@ -31,6 +31,7 @@ import com.zhanghao.gankio.ui.widget.CustomLoadMore;
 import com.zhanghao.gankio.ui.widget.MyFloatingActionButton;
 import com.zhanghao.gankio.util.ActivityUtil;
 import com.zhanghao.gankio.util.ComUtil;
+import com.zhanghao.gankio.util.SharedPrefsUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +46,7 @@ import butterknife.Unbinder;
  * Created by zhanghao on 2017/3/17.
  */
 
-public class HomeFragment extends BaseFragment<GankContract.DailyPresenter> implements GankContract.DailyView, LikeListener {
+public class DayFragment extends BaseFragment<GankContract.DailyPresenter> implements GankContract.DailyView, LikeListener {
     private static final String TAG = "HomeFragment";
     Unbinder unbinder;
     @BindView(R.id.ganklist_lv)
@@ -74,8 +75,8 @@ public class HomeFragment extends BaseFragment<GankContract.DailyPresenter> impl
     }
 
 
-    public static HomeFragment getInstance() {
-        HomeFragment homeFragment = new HomeFragment();
+    public static DayFragment getInstance() {
+        DayFragment homeFragment = new DayFragment();
         new GankRemotePresenter(homeFragment, GankDataRemoteRepository.getInstance());
         return homeFragment;
     }
@@ -91,6 +92,8 @@ public class HomeFragment extends BaseFragment<GankContract.DailyPresenter> impl
     }
 
     private void initView() {
+
+
         homeSearchFab.setOnClickListener(v -> {
             ActivityUtil.gotoSearchActivity(getContext());
         });
@@ -113,7 +116,6 @@ public class HomeFragment extends BaseFragment<GankContract.DailyPresenter> impl
             initData();
             loadFailedLl.setVisibility(View.GONE);
         });
-
     }
 
 
@@ -297,16 +299,34 @@ public class HomeFragment extends BaseFragment<GankContract.DailyPresenter> impl
 
     private void onItemClick(int position) {
         int type = mDatas.get(position).getItemType();
+
+
+
         if (type == Constant.CONTENT_IMG || type == Constant.CONTENT) {
             GankContent content = (GankContent) mDatas.get(position);
+            //添加历史记录
+            addOneItemToHistory(content);
+
             String url = content.getUrl();
             String title = content.getDesc();
             ActivityUtil.gotoDetailActivity(getContext(), url, title);
         }
         if (type == Constant.IMG) {
+
+            addOneItemToHistory(gankSections.get(position).getContent());
+
             ActivityUtil.gotoPhotoActivityH(getContext(), gankSections, mDatas, position);
         }
     }
+
+
+    private void addOneItemToHistory(GankContent item){
+        String token = User.getInstance().getUserToken();
+        if (token!=null && !token.isEmpty()){
+            mPresenter.addOneHis(item,token);
+        }
+    }
+
 
 
     @Override

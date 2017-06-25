@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.zhanghao.gankio.contract.GankContract;
 import com.zhanghao.gankio.entity.MoreEntity;
+import com.zhanghao.gankio.entity.Tag;
 import com.zhanghao.gankio.model.GankDataSource;
 
 import java.util.List;
@@ -12,7 +13,10 @@ import java.util.List;
  * Created by zhanghao on 2017/6/13.
  */
 
-public class GankLocalPresenter extends BasePresenterImpl implements  GankContract.MorePresenter,GankContract.SearchLocalPresenter{
+public class GankLocalPresenter extends BasePresenterImpl implements
+        GankContract.MorePresenter,
+        GankContract.SearchLocalPresenter,
+        GankContract.RecommendLocalPresenter{
 
 
 
@@ -30,6 +34,11 @@ public class GankLocalPresenter extends BasePresenterImpl implements  GankContra
    GankLocalPresenter(GankContract.SearchLocalView localView,GankDataSource.GankLocalDataSource dataSource){
         this.mSearchView=localView;
         this.dataSource=dataSource;
+   }
+
+
+   public GankLocalPresenter(GankDataSource.GankLocalDataSource dataSource){
+       this.dataSource = dataSource;
    }
 
 
@@ -68,5 +77,15 @@ public class GankLocalPresenter extends BasePresenterImpl implements  GankContra
     @Override
     public void updateSearchHistory(Context context, String word) {
         dataSource.updateSearchHistory(context,word);
+    }
+
+    @Override
+    public List<Tag> getLocalTags(Context context) {
+        return dataSource.getLocalTags(context);
+    }
+
+    @Override
+    public void saveLocalTags(Context context,List<Tag> tags) {
+         dataSource.saveLocalTags(context,tags);
     }
 }

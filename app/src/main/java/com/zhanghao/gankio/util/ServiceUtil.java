@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.zhanghao.gankio.entity.Constant;
 import com.zhanghao.gankio.service.FirRemoteService;
+import com.zhanghao.gankio.service.LocalDataSyncService;
 import com.zhanghao.gankio.service.SplashImageService;
 
 /**
@@ -29,6 +30,13 @@ public class ServiceUtil {
         intent.putExtra(Constant.FIR_NEW_APK_SIZE,size);
         context.startService(intent);
     }
+
+
+    public static void startSyncDataService(Context context){
+        Intent intent = new Intent(context, LocalDataSyncService.class);
+        context.startService(intent);
+    }
+
 
 
 }

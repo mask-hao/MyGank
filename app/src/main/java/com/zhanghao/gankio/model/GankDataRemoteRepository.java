@@ -11,10 +11,12 @@ import com.zhanghao.gankio.entity.CommonResponse;
 import com.zhanghao.gankio.entity.Constant;
 import com.zhanghao.gankio.entity.Gank;
 import com.zhanghao.gankio.entity.GankContent;
+import com.zhanghao.gankio.entity.GankCustom;
 import com.zhanghao.gankio.entity.GankFavs;
 import com.zhanghao.gankio.entity.GankItem;
 import com.zhanghao.gankio.entity.GankSearchItem;
 import com.zhanghao.gankio.entity.MoreEntity;
+import com.zhanghao.gankio.entity.Tag;
 import com.zhanghao.gankio.entity.User;
 
 import java.util.ArrayList;
@@ -31,10 +33,7 @@ import retrofit2.Call;
 public class GankDataRemoteRepository implements GankDataSource.GankRemoteDataSource{
 
     private static GankDataRemoteRepository INSTANCE;
-    private SQLiteDatabase DB;
-
-    private GankDataRemoteRepository() {
-    }
+    private GankDataRemoteRepository() {}
 
     public static synchronized GankDataRemoteRepository getInstance() {
         if (INSTANCE == null)
@@ -85,5 +84,31 @@ public class GankDataRemoteRepository implements GankDataSource.GankRemoteDataSo
     @Override
     public Observable<CommonResponse<List<GankSearchItem>>> getSearchResult(String words) {
         return GankApi.getInstance().service.getSearch(words);
+    }
+
+    @Override
+    public Observable<Void> addOneHis(GankContent content, String token) {
+        return GankApi.getInstance().service.addHis(content,token);
+    }
+
+    @Override
+    public Observable<GankCustom> getCustomData(User user) {
+        return GankApi.getInstance().service.getCustomData(user);
+    }
+
+    @Override
+    public Observable<CommonResponse<List<Tag>>> getRemoteTags() {
+        return GankApi.getInstance().service.getAllTags();
+    }
+
+
+    @Override
+    public Observable<GankCustom> getCustomRandomData(List<Tag> tags) {
+        return GankApi.getInstance().service.getCustomRandomData(tags);
+    }
+
+    @Override
+    public Observable<CommonResponse<String>> addUserTags(List<Tag> tags,String token) {
+        return GankApi.getInstance().service.addUserTags(tags,token);
     }
 }
