@@ -31,6 +31,6 @@ public class RecommendPhotoAdapter extends BaseQuickAdapter<GankContent,BaseView
     @Override
     protected void convert(BaseViewHolder helper, GankContent item) {
         ImageView imageView = helper.getView(R.id.img_9_iv);
-        Glide.with(context).load(item.getUrl()).override(width,width).centerCrop().into(imageView);
+        Glide.with(context).load(item.getUrl()).override(width,width).into(imageView);
     }
 }

@@ -420,10 +420,13 @@ public class GankRemotePresenter extends BasePresenterImpl implements
                 .subscribe(new RxObserver<CommonResponse<List<Tag>>>(this) {
                     @Override
                     protected void onSuccess(CommonResponse<List<Tag>> listCommonResponse) {
-                        if (listCommonResponse.getResult().equals(Constant.GET_TAGS_SUCCESS)){
-                            mRecommendView.setRecommendTagsData(listCommonResponse.getContent());
-                        }else
-                            onFail(listCommonResponse.getResult());
+                        if (listCommonResponse!=null){
+                            if (listCommonResponse.getResult().equals(Constant.GET_TAGS_SUCCESS)){
+                                mRecommendView.setRecommendTagsData(listCommonResponse.getContent());
+                            }else
+                                onFail(listCommonResponse.getResult());
+                        }
+
                     }
 
                     @Override

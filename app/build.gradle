@@ -24,7 +24,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -50,14 +50,10 @@ dependencies {
     compile "de.hdodenhof:circleimageview:$rootProject.cicleImageVersion"
     compile "com.github.bumptech.glide:glide:$rootProject.glideVersion"
     compile "com.github.CymChad:BaseRecyclerViewAdapterHelper:$rootProject.baseAdapter"
-    //    retrolambdaConfig "me.tatarka:gradle-retrolambda:$rootProject.retrolambdaVersion"
     compile "com.github.chrisbanes:PhotoView:$rootProject.photoViewVersion"
     compile "com.github.jd-alexander:LikeButton:$rootProject.likeBtVersion"
     compile 'skin.support:skin-support:1.2.7'
     compile 'skin.support:skin-support-design:1.2.4'
     compile 'skin.support:skin-support-cardview:1.2.0'
     compile files('libs/Bughd_android_sdk_v1.3.7.jar')
-    debugCompile "com.squareup.leakcanary:leakcanary-android:$rootProject.leakCanaryVersion"
-    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakCanaryVersion"
-    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakCanaryVersion"
 }

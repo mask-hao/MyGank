@@ -15,6 +15,7 @@ import com.zhanghao.gankio.entity.Constant;
 import com.zhanghao.gankio.entity.GankContent;
 import com.zhanghao.gankio.entity.GankSection;
 import com.zhanghao.gankio.entity.RecommendPhoto;
+import com.zhanghao.gankio.ui.widget.DividerGridItemDecoration;
 import com.zhanghao.gankio.util.ActivityUtil;
 import com.zhanghao.gankio.util.ComUtil;
 import com.zhanghao.gankio.util.SharedPrefsUtils;
@@ -86,6 +87,7 @@ public class RecommendAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity,
                 recyclerView.setLayoutManager(new GridLayoutManager(context,3));
                 RecommendPhotoAdapter adapter = new RecommendPhotoAdapter(R.layout.gank_9_img_item,
                         contents,context);
+                recyclerView.addItemDecoration(new DividerGridItemDecoration(context));
                 recyclerView.setAdapter(adapter);
                 adapter.setOnItemClickListener((adapter1, view, position) -> {
                     ActivityUtil.gotoPhotoActivityFromRecommend(context,contents,position);
