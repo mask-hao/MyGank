@@ -273,7 +273,7 @@ public class DayFragment extends BaseFragment<GankContract.DailyPresenter> imple
                 mPresenter.getDailyData(String.valueOf(page), false, true);
             }, gankDailyLv);
             homeDataAdapter.setOnItemClickListener((adapter, view, position) -> {
-                onItemClick(position);
+                onItemClick(position,view);
             });
             dateList.add(mDatas.size());
         }
@@ -297,7 +297,7 @@ public class DayFragment extends BaseFragment<GankContract.DailyPresenter> imple
 
     }
 
-    private void onItemClick(int position) {
+    private void onItemClick(int position,View view) {
         int type = mDatas.get(position).getItemType();
 
 
@@ -312,10 +312,9 @@ public class DayFragment extends BaseFragment<GankContract.DailyPresenter> imple
             ActivityUtil.gotoDetailActivity(getContext(), url, title);
         }
         if (type == Constant.IMG) {
-
-            addOneItemToHistory(gankSections.get(position).getContent());
-
-            ActivityUtil.gotoPhotoActivityH(getContext(), gankSections, mDatas, position);
+            int pos = gankSections.indexOf(mDatas.get(position));
+            addOneItemToHistory(gankSections.get(pos).getContent());
+            ActivityUtil.gotoPhotoActivityH(getActivity(), view,gankSections, mDatas, position);
         }
     }
 
@@ -351,14 +350,9 @@ public class DayFragment extends BaseFragment<GankContract.DailyPresenter> imple
     @Override
     public void onLiked(int pos) {
 
-//        LogUtil.d(TAG,"like"+pos);
-
         if (LIKE_CLICK) {
             String token = User.getInstance().getUserToken();
             if (!token.isEmpty()) {
-
-//                LogUtil.d(TAG,mDatas.get(pos).getClass().getSimpleName());
-
                 GankContent item = (GankContent) mDatas.get(pos);
                 mPresenter.addOneFav(item, token, pos);
                 LIKE_CLICK = false;

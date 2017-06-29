@@ -1,5 +1,7 @@
 package com.zhanghao.gankio.ui.adapter;
+import android.app.Activity;
 import android.content.Context;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -16,6 +18,7 @@ import com.zhanghao.gankio.entity.GankContent;
 import com.zhanghao.gankio.entity.GankSection;
 import com.zhanghao.gankio.entity.RecommendPhoto;
 import com.zhanghao.gankio.ui.widget.DividerGridItemDecoration;
+import com.zhanghao.gankio.ui.widget.ItemDecorationAlbumColumns;
 import com.zhanghao.gankio.util.ActivityUtil;
 import com.zhanghao.gankio.util.ComUtil;
 import com.zhanghao.gankio.util.SharedPrefsUtils;
@@ -29,26 +32,27 @@ import java.util.List;
 
 public class RecommendAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity,BaseViewHolder>{
 
+    private Activity activity;
     private Context context;
-    public RecommendAdapter(List<MultiItemEntity> data,Context context) {
+    private LinearLayout.LayoutParams layoutParams;
+    private ItemDecorationAlbumColumns albumColumns;
+    public RecommendAdapter(List<MultiItemEntity> data,Activity activity) {
         super(data);
-        this.context = context;
+        this.activity = activity;
+        context = activity.getApplicationContext();
         addItemType(Constant.CONTENT, R.layout.gankitem_layout);
         addItemType(Constant.CONTENT_IMG,R.layout.gankitem_layout_with_img);
         addItemType(Constant.IMG_9,R.layout.gankitem_9_imgs);
         addItemType(Constant.SECTION,R.layout.gank_recommend_section);
+        int height = (int) (ComUtil.getScreenWidth(context)/3);
+        layoutParams =new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,height*3);
+        albumColumns = new ItemDecorationAlbumColumns(6,3);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, MultiItemEntity item) {
 
-
-        System.out.println(item.getItemType());
-
-
         switch (helper.getItemViewType()) {
-
-
 
             case Constant.CONTENT_IMG:
                 ImageView iv = helper.getView(R.id.gankitem_iv);
@@ -82,15 +86,17 @@ public class RecommendAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity,
                 RecommendPhoto recommendPhoto = (RecommendPhoto) item;
                 List<GankContent> contents = recommendPhoto.getNine_photos();
                 RecyclerView recyclerView = helper.getView(R.id.gank_9_Imgs_Rl);
-                int height = (int) (ComUtil.getScreenWidth(context)/3);
-                recyclerView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,height*3));
+                recyclerView.setLayoutParams(layoutParams);
                 recyclerView.setLayoutManager(new GridLayoutManager(context,3));
                 RecommendPhotoAdapter adapter = new RecommendPhotoAdapter(R.layout.gank_9_img_item,
                         contents,context);
-                recyclerView.addItemDecoration(new DividerGridItemDecoration(context));
+                if (recyclerView.getTag()==null){
+                    recyclerView.addItemDecoration(albumColumns);
+                    recyclerView.setTag("already init");
+                }
                 recyclerView.setAdapter(adapter);
                 adapter.setOnItemClickListener((adapter1, view, position) -> {
-                    ActivityUtil.gotoPhotoActivityFromRecommend(context,contents,position);
+                    ActivityUtil.gotoPhotoActivityFromRecommend(activity,view,contents,position);
                 });
                 break;
             case Constant.SECTION:

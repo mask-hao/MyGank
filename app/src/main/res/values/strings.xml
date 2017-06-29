@@ -49,4 +49,5 @@
     <string name="from_photo">来源：福利</string>
     <string name="who_photo">作者：Gank</string>
     <string name="click_load_more">点击为您推荐更多</string>
+    <string name="photo_trasition">转场动画</string>
 </resources>

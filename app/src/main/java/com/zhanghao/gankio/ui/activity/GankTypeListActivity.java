@@ -194,7 +194,7 @@ public class GankTypeListActivity extends BaseToolbarActivity<GankContract.TypeP
                 mPresenter.getTypeData(mType, String.valueOf(page), false, true);
             }, ganktypeRl);
             gankTypeAdapter.setOnItemClickListener((adapter, view, position) -> {
-                onItemClick(position);
+                onItemClick(position,view);
             });
         }
 
@@ -214,7 +214,7 @@ public class GankTypeListActivity extends BaseToolbarActivity<GankContract.TypeP
 
     }
 
-    private void onItemClick(int position) {
+    private void onItemClick(int position,View view) {
         GankContent content = (GankContent) mDatas.get(position);
 
         //加入历史记录
@@ -222,7 +222,7 @@ public class GankTypeListActivity extends BaseToolbarActivity<GankContract.TypeP
         addOneItemToHistory(content);
 
         if (mDatas.get(position).getItemType() == Constant.IMG) {
-            ActivityUtil.gotoPhotoActivity(this, mDatas, position);
+            ActivityUtil.gotoPhotoActivity(this,view ,mDatas, position);
         } else {
             ActivityUtil.gotoDetailActivity(this, content.getUrl(), content.getDesc());
         }

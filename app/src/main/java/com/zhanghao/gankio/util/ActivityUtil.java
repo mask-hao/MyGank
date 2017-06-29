@@ -1,11 +1,16 @@
 package com.zhanghao.gankio.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.view.View;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.zhanghao.gankio.R;
 import com.zhanghao.gankio.entity.GankContent;
 import com.zhanghao.gankio.entity.GankSection;
 import com.zhanghao.gankio.ui.activity.DetailActivity;
@@ -49,7 +54,11 @@ public class ActivityUtil {
         context.startActivity(intent);
     }
 
-    public static void gotoPhotoActivity(Context context,List<MultiItemEntity> list,int pos){
+
+
+
+
+    public static void gotoPhotoActivity(Activity activity, View view, List<MultiItemEntity> list, int pos){
         ArrayList<String> urls=new ArrayList<>();
         ArrayList<String> ids = new ArrayList<>();
         for (MultiItemEntity itemEntity : list) {
@@ -59,33 +68,36 @@ public class ActivityUtil {
                 ids.add(content.get_id());
             }
         }
-        Intent intent = new Intent(context, PhotoActivity.class);
+        Intent intent = new Intent(activity, PhotoActivity.class);
         intent.putStringArrayListExtra("urls",urls);
         intent.putStringArrayListExtra("ids",ids);
         intent.putExtra("position",pos);
-        context.startActivity(intent);
+        ActivityOptionsCompat optionsCompat=ActivityOptionsCompat.makeClipRevealAnimation(view,view.getWidth()/2,view.getHeight()/2,0,0);
+        ActivityCompat.startActivity(activity,intent,optionsCompat.toBundle());
+
     }
 
 
-
-    public static void gotoPhotoActivityFromRecommend(Context context,List<GankContent> list,int pos){
+    public static void gotoPhotoActivityFromRecommend(Activity activity,View view,List<GankContent> list,int pos){
         ArrayList<String> urls=new ArrayList<>();
         ArrayList<String> ids = new ArrayList<>();
         for (GankContent content : list) {
                 urls.add(content.getUrl());
                 ids.add(content.get_id());
         }
-        Intent intent = new Intent(context, PhotoActivity.class);
+        Intent intent = new Intent(activity, PhotoActivity.class);
         intent.putStringArrayListExtra("urls",urls);
         intent.putStringArrayListExtra("ids",ids);
         intent.putExtra("position",pos);
-        context.startActivity(intent);
+        ActivityOptionsCompat optionsCompat=ActivityOptionsCompat.makeClipRevealAnimation(view,view.getWidth()/2,view.getHeight()/2,0,0);
+        ActivityCompat.startActivity(activity,intent,optionsCompat.toBundle());
+
     }
 
 
 
 
-    public static void gotoPhotoActivityH(Context context,List<GankSection> list,
+    public static void gotoPhotoActivityH(Activity activity,View view,List<GankSection> list,
                                           List<MultiItemEntity> itemEntities,int pos){
         ArrayList<String> urls=new ArrayList<>();
         ArrayList<String> ids=new ArrayList<>();
@@ -97,12 +109,13 @@ public class ActivityUtil {
             urls.add(gankSection.getContent().getUrl());
             ids.add(gankSection.getContent().get_id());
         }
-
-        Intent intent = new Intent(context, PhotoActivity.class);
+        Intent intent = new Intent(activity, PhotoActivity.class);
         intent.putStringArrayListExtra("urls",urls);
         intent.putStringArrayListExtra("ids",ids);
         intent.putExtra("position",realPos);
-        context.startActivity(intent);
+        ActivityOptionsCompat optionsCompat=ActivityOptionsCompat.makeClipRevealAnimation(view,view.getWidth()/2,view.getHeight()/2,0,0);
+        ActivityCompat.startActivity(activity,intent,optionsCompat.toBundle());
+
     }
 
     public static void gotoFavActivity(Context context) {

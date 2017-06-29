@@ -191,7 +191,7 @@ public class RecommendFragment extends BaseFragment<GankContract.RecommendPresen
         if (!refresh) {
             mDatas = new ArrayList<>();
             mDatas.addAll(customList);
-            recommendAdapter = new RecommendAdapter(mDatas, getContext());
+            recommendAdapter = new RecommendAdapter(mDatas, getActivity());
             recommendAdapter.addHeaderView(LayoutInflater.from(getContext()).inflate(R.layout.recycler_header,
                     (ViewGroup) gankRecommendlistRl.getParent(), false));
             recommendAdapter.addFooterView(LayoutInflater.from(getContext()).inflate(R.layout.recycler_click_loadmore,

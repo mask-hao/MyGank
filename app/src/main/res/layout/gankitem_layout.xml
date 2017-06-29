@@ -51,7 +51,6 @@
                 android:layout_marginStart="5dp"
                 android:lines="1"
                 android:textColor="@color/colorTextViewGrey"
-                android:text="souce:chrome"
                 android:textSize="12sp" />
 
 

@@ -7,6 +7,7 @@
     <ImageView
         android:id="@+id/gankitem_photo_iv"
         android:scaleType="centerCrop"
+        android:transitionName="@string/photo_trasition"
         android:layout_width="match_parent"
         android:layout_height="150dp" />
     <View
