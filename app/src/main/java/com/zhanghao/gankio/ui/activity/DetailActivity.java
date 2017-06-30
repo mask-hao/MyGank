@@ -31,19 +31,16 @@ import butterknife.BindView;
  */
 
 @SuppressLint("SetJavaScriptEnabled")
-public class DetailActivity extends BaseActionBarActivity {
+public class DetailActivity extends BaseToolbarActivity{
 
     private static final String TAG = "DetailActivity";
     @BindView(R.id.gankcontent_pg)
     ProgressBar progressBar;
     @BindView(R.id.gank_content_wb)
     MyScrollWebView webView;
-    @BindView(R.id.detail_main_ll)
-    LinearLayout detailMainLl;
     private String URL;
     private String TITLE;
     WebSettings webSettings;
-    private boolean isFullScreen = false;
 
     @Override
     protected int setContentLayout() {
@@ -108,39 +105,31 @@ public class DetailActivity extends BaseActionBarActivity {
         webView.setScrollListener(new WebViewScrollListener() {
             @Override
             public void hideToolbar() {
-                new Handler().postDelayed(() -> {
-
-                    hideSystemUI();
-                }, 500);
-
 
             }
 
             @Override
             public void showToolbar() {
-                new Handler().postDelayed(() -> {
-                    showSystemUI();
-                }, 500);
             }
         });
     }
 
-    private void hideSystemUI() {
-       getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
-    }
-
-    private void showSystemUI() {
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-    }
+//    private void hideSystemUI() {
+//       getWindow().getDecorView().setSystemUiVisibility(
+//                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+//                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+//                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
+//    }
+//
+//    private void showSystemUI() {
+//        getWindow().getDecorView().setSystemUiVisibility(
+//                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+//    }
 
 
     private WebChromeClient chromeClient = new WebChromeClient() {

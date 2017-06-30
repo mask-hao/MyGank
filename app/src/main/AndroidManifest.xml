@@ -36,7 +36,6 @@
         </activity>
         <activity android:name=".ui.activity.SettingActivity"/>
         <activity android:name=".ui.activity.DetailActivity"
-            android:theme="@style/AppThemeWithActionBar"
             />
         <activity android:name=".ui.activity.GankTypeListActivity"/>
         <activity android:name=".ui.activity.PhotoActivity"/>

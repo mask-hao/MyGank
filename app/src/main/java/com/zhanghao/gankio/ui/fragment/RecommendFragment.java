@@ -184,8 +184,8 @@ public class RecommendFragment extends BaseFragment<GankContract.RecommendPresen
     @Override
     public void setRecommendData(List<MultiItemEntity> customList, boolean refresh) {
 
-
-
+        if (recommendSearchFab.getVisibility()==View.GONE)
+            recommendSearchFab.setVisibility(View.VISIBLE);
         if (gankRecommendlistRl.getAdapter() instanceof TagAdapter)
             gankRecommendlistRl.removeAllViews();
         if (!refresh) {
@@ -252,6 +252,8 @@ public class RecommendFragment extends BaseFragment<GankContract.RecommendPresen
     @Override
     public void setRecommendTagsData(List<Tag> tags) {
         gankRecommendSrl.setEnabled(false);
+        recommendSearchFab.setVisibility(View.GONE);
+
         TagAdapter adapter = new TagAdapter(getContext(), R.layout.gank_tag_item, tags);
         gankRecommendlistRl.setLayoutManager(new GridLayoutManager(getContext(), 4));
         gankRecommendlistRl.setAdapter(adapter);

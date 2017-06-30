@@ -4,6 +4,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
@@ -55,23 +56,23 @@ public class TagAdapter extends BaseQuickAdapter<Tag, BaseViewHolder> {
         if (selectTags.contains(item)){
             selectCv.setTag(true);
             selectTv.setText("-");
-            selectCv.setCardBackgroundColor(context.getColor(R.color.colorTextViewGrey));
+            selectCv.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorTextViewGrey));
         }else{
             selectCv.setTag(false);
-            selectCv.setCardBackgroundColor(context.getColor(R.color.colorPrimary));
+            selectCv.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorPrimary));
         }
 
         helper.getConvertView().setOnClickListener(v -> {
             if (selectTags.contains(item)){
                 selectTags.remove(item);
                 selectCv.setTag(false);
-                selectCv.setCardBackgroundColor(context.getColor(R.color.colorPrimary));
+                selectCv.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorPrimary));
                 selectTv.setText("+");
                 showAnimation(selectCv);
             }else{
                 selectTags.add(item);
                 selectCv.setTag(true);
-                selectCv.setCardBackgroundColor(context.getColor(R.color.colorTextViewGrey));
+                selectCv.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorTextViewGrey));
                 selectTv.setText("-");
                showAnimation(selectCv);
             }

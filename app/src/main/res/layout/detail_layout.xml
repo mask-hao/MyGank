@@ -8,6 +8,8 @@
     android:orientation="vertical"
     >
 
+    <include
+        layout="@layout/toolbar_include"/>
 
     <ProgressBar
         android:id="@+id/gankcontent_pg"
