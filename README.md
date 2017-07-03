@@ -4,10 +4,14 @@
 一个具有用户登录注册，干货收藏功能的[干货集中营](http://www.gank.io)第三方客户端。个人学习项目，前端使用Android展示，后端使用javaee中转，数据来源干货集中营。
 
 #### 截图
-<img src="/screenshot/screenshot1.png" width="30%" height="30%">
-<img src="/screenshot/screenshot2.png" width="30%" height="30%">
-<img src="/screenshot/screenshot3.png" width="30%" height="30%">
-<img src="/screenshot/screenshot4.png" width="30%" height="30%">
+<divn style="display:inline;"> 
+<ul>
+<li><img src="/screenshot/screenshot1.png" width="30%" height="30%"></li>
+<li><img src="/screenshot/screenshot2.png" width="30%" height="30%"></li>	
+<li><img src="/screenshot/screenshot3.png" width="30%" height="30%"></li>	
+<li><img src="/screenshot/screenshot4.png" width="30%" height="30%"></li>		
+</ul>
+</div>
 
 #### 主要技术
 
